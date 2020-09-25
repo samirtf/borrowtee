@@ -1,8 +1,8 @@
-package tf.samir.borrowtee.domain.model
+package tf.samir.borrowtee.model
 
 interface Thing {
     val id: String
     val name: String
     val description: String
-    val state: Int
+    @ThingState val state: Int
 }
