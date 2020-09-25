@@ -47,4 +47,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    // Dependency Injection
+    api 'com.google.dagger:dagger-android:2.15'
+    api 'com.google.dagger:dagger-android-support:2.15' // if you use the support libraries
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
+
 }
