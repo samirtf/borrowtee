@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="tf.samir.borrowtee.modules.main.view.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:name="tf.samir.borrowtee.modules.main.view.all_things.AllThingsFragment"
+        android:label="@string/title_all_things"
+        tools:layout="@layout/fragment_all_things" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
