@@ -52,6 +52,9 @@ dependencies {
     // logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    // LeakCanary: debugImplementation because LeakCanary should only run in debug builds.
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
+
     // mockito and testes
     testImplementation 'org.mockito:mockito-core:3.1.0'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
