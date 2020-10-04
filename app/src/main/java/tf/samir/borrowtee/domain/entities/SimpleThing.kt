@@ -1,4 +1,4 @@
-package tf.samir.borrowtee.model
+package tf.samir.borrowtee.domain.entities
 
 class SimpleThing(
     override val id: String,

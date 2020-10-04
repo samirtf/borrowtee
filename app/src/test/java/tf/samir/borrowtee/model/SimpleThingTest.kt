@@ -5,6 +5,9 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import tf.samir.borrowtee.domain.entities.AT_HOME
+import tf.samir.borrowtee.domain.entities.SimpleThing
+import tf.samir.borrowtee.domain.entities.Thing
 
 @RunWith(JUnit4::class)
 class SimpleThingTest {

@@ -1,6 +1,7 @@
 package tf.samir.borrowtee.data.repositories
 
-import tf.samir.borrowtee.model.*
+import tf.samir.borrowtee.domain.entities.*
+import tf.samir.borrowtee.domain.repositories.ThingsRepository
 
 class InMemoryThingsRepositoryMock: ThingsRepository {
     override fun getThingsAtHome(): List<Thing> {

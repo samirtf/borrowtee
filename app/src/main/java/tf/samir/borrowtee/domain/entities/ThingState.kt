@@ -1,4 +1,4 @@
-package tf.samir.borrowtee.model
+package tf.samir.borrowtee.domain.entities
 
 import androidx.annotation.IntDef
 

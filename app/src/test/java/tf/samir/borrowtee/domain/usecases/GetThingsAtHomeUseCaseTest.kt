@@ -2,14 +2,14 @@ package tf.samir.borrowtee.domain.usecases
 
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
 import org.junit.Assert.*
-import tf.samir.borrowtee.data.repositories.InMemoryThingsRepositoryMock
-import tf.samir.borrowtee.data.repositories.ThingsRepository
-import tf.samir.borrowtee.model.*
+import tf.samir.borrowtee.domain.entities.AT_HOME
+import tf.samir.borrowtee.domain.entities.SimpleThing
+import tf.samir.borrowtee.domain.entities.Thing
+import tf.samir.borrowtee.domain.repositories.ThingsRepository
 
 class GetThingsAtHomeUseCaseTest {
 

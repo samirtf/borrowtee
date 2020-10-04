@@ -1,4 +1,4 @@
-package tf.samir.borrowtee.ui.home
+package tf.samir.borrowtee.view.page.main.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import tf.samir.borrowtee.R
+import tf.samir.borrowtee.presentation.presenter.home.HomeViewModel
 
 class HomeFragment : Fragment() {
 
