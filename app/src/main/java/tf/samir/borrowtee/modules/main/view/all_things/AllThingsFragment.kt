@@ -6,27 +6,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import tf.samir.borrowtee.R
+import tf.samir.borrowtee.databinding.FragmentAllThingsBinding
 import tf.samir.borrowtee.modules.main.presentation.presenter.all_things.AllThingsViewModel
 
 class AllThingsFragment : Fragment() {
 
-    private lateinit var allThingsViewModel: AllThingsViewModel
+    private var _binding: FragmentAllThingsBinding? = null
+    private val binding get() = _binding!!
+    private val allThingsViewModel: AllThingsViewModel by viewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        allThingsViewModel =
-                ViewModelProvider(this).get(AllThingsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_all_things, container, false)
-        val textView: TextView = root.findViewById(R.id.text_all_things)
-        allThingsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+
+        _binding =  FragmentAllThingsBinding.inflate(inflater, container, false)
+            .also {
+                it.viewModel = allThingsViewModel
+                it.lifecycleOwner = viewLifecycleOwner
+            }
+        val view = binding.root
+        return view
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

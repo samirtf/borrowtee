@@ -1,23 +1,25 @@
 package tf.samir.borrowtee.modules.main.presentation.presenter.all_things
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import tf.samir.borrowtee.modules.main.domain.entities.Thing
+import tf.samir.borrowtee.modules.main.domain.repositories.ThingsRepository
+import tf.samir.borrowtee.modules.main.infrastructure.repositories.InMemoryThingsRepositoryMock
+import tf.samir.borrowtee.modules.main.utils.toRecyclerItem
+import tf.samir.borrowtee.viewbase.RecyclerItem
 
-class AllThingsViewModel : ViewModel() {
+class AllThingsViewModel() : ViewModel() {
 
-    private val things = MutableLiveData<Thing>()
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is All Things Fragment"
-    }
-    val text: LiveData<String> = _text
+    private val repository: ThingsRepository = InMemoryThingsRepositoryMock()
+
+    var things = MutableLiveData<List<RecyclerItem>>(emptyList())
+        private set
 
     init {
         loadData()
     }
 
     private fun loadData() {
-        throw NotImplementedError("fetch data from repository")
+        things.value = repository.getThingsAtHome().map { it.toRecyclerItem() }
+        things.value
     }
 }
