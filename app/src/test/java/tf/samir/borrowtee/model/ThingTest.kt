@@ -6,17 +6,16 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import tf.samir.borrowtee.modules.main.domain.entities.AT_HOME
-import tf.samir.borrowtee.modules.main.domain.entities.SimpleThing
 import tf.samir.borrowtee.modules.main.domain.entities.Thing
 
 @RunWith(JUnit4::class)
-class SimpleThingTest {
+class ThingTest {
 
     private lateinit var thing: Thing
 
     @Before
     fun setUp() {
-        thing = SimpleThing(
+        thing = Thing(
             id = "287584469D1068E856D9699F40255C27",
             name = "Bluehand Protocol",
             description = "The Bluehand Protocol: Zombies is the definitive guide against the dead " +

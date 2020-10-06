@@ -7,7 +7,6 @@ import org.junit.Test
 
 import org.junit.Assert.*
 import tf.samir.borrowtee.modules.main.domain.entities.AT_HOME
-import tf.samir.borrowtee.modules.main.domain.entities.SimpleThing
 import tf.samir.borrowtee.modules.main.domain.entities.Thing
 import tf.samir.borrowtee.modules.main.domain.repositories.ThingsRepository
 
@@ -19,7 +18,7 @@ class GetThingsAtHomeUseCaseTest {
     fun setUp() {
         val thingsRepositoryMock = mock<ThingsRepository>{
             on { getThingsAtHome() } doReturn listOf(
-                SimpleThing(
+                Thing(
                     id = "287584469D1068E856D9699F40255C27",
                     name = "Bluehand Protocol",
                     description = "The Bluehand Protocol: Zombies is the definitive guide against the dead " +
@@ -28,7 +27,7 @@ class GetThingsAtHomeUseCaseTest {
                             "years to come.",
                     state = AT_HOME
                 ),
-                SimpleThing(
+                Thing(
                     id = "110498DD8F61517AF75D8327ECBA3FA3",
                     name = "The Outsiders – S.E. Hinton",
                     description = "This short novel is perfect for EFL learners. It has modern themes " +

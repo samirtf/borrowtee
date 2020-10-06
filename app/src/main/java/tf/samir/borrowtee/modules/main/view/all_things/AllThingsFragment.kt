@@ -26,8 +26,12 @@ class AllThingsFragment : Fragment() {
                 it.viewModel = allThingsViewModel
                 it.lifecycleOwner = viewLifecycleOwner
             }
-        val view = binding.root
-        return view
+        return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        allThingsViewModel.loadData()
     }
 
     override fun onDestroy() {

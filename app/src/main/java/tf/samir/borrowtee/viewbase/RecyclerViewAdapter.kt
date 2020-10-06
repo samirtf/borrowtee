@@ -2,16 +2,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.DiffUtil.ItemCallback
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import tf.samir.borrowtee.viewbase.RecyclerItem
 
-class RecyclerViewAdapter : RecyclerView.Adapter<BindingViewHolder>() {
-
-    private val items = mutableListOf<RecyclerItem>()
-
-    override fun getItemCount(): Int {
-        return items.size
-    }
+class RecyclerViewAdapter : ListAdapter<RecyclerItem, BindingViewHolder>(ThingDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
         return getItem(position).layoutId
@@ -34,17 +31,20 @@ class RecyclerViewAdapter : RecyclerView.Adapter<BindingViewHolder>() {
         holder.binding.executePendingBindings()
     }
 
-    fun updateData(newItems: List<RecyclerItem>) {
-        this.items.clear()
-        this.items.addAll(newItems)
-        notifyDataSetChanged()
-    }
-
-    private fun getItem(position: Int): RecyclerItem {
-        return items[position]
-    }
 }
 
 class BindingViewHolder(
     val binding: ViewDataBinding
 ) : RecyclerView.ViewHolder(binding.root)
+
+class ThingDiffCallback : DiffUtil.ItemCallback<RecyclerItem>() {
+
+    override fun areItemsTheSame(oldItem: RecyclerItem, newItem: RecyclerItem): Boolean {
+        return oldItem.data == newItem.data
+    }
+
+    override fun areContentsTheSame(oldItem: RecyclerItem, newItem: RecyclerItem): Boolean {
+        return oldItem == newItem
+    }
+
+}

@@ -14,12 +14,9 @@ class AllThingsViewModel() : ViewModel() {
     var things = MutableLiveData<List<RecyclerItem>>(emptyList())
         private set
 
-    init {
-        loadData()
-    }
-
-    private fun loadData() {
-        things.value = repository.getThingsAtHome().map { it.toRecyclerItem() }
-        things.value
+    // Called from Fragment's onStart()
+    fun loadData() {
+        things.value = repository.getThingsAtHome()
+            .map { it.toRecyclerItem() }
     }
 }
