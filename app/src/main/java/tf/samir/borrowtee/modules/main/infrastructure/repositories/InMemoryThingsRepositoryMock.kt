@@ -13,7 +13,7 @@ class InMemoryThingsRepositoryMock : ThingsRepository {
     }
 
     private val things = listOf(
-        SimpleThing(
+        Thing(
             id = "287584469D1068E856D9699F40255C27",
             name = "Bluehand Protocol",
             description = "The Bluehand Protocol: Zombies is the definitive guide against the dead " +
@@ -22,7 +22,7 @@ class InMemoryThingsRepositoryMock : ThingsRepository {
                     "years to come.",
             state = AT_HOME
         ),
-        SimpleThing(
+        Thing(
             id = "CE7CAE554960CCB363B04765DD8BF8AD",
             name = "The Book of the Dead",
             description = "The Book of the Dead is important for Egyptian culture as it is " +
@@ -31,7 +31,7 @@ class InMemoryThingsRepositoryMock : ThingsRepository {
                     "to what the sacred books of other religions fulfill today.",
             state = BORROWED
         ),
-        SimpleThing(
+        Thing(
             id = "E138262CDFF78EC6B6DB6A3183FC28F4",
             name = "Info Magazine",
             description = "Info Exame ou simply Info was a Brazilian monthly magazine about " +
@@ -40,7 +40,7 @@ class InMemoryThingsRepositoryMock : ThingsRepository {
                     "also had an edition in Portugal.",
             state = LOST
         ),
-        SimpleThing(
+        Thing(
             id = "73E989CBDCA6EE8FD0469719C9868209",
             name = "Charlotte’s Web – E.B. White",
             description = "This is a lovely novel that all age groups can understand. Aimed at " +
@@ -51,7 +51,7 @@ class InMemoryThingsRepositoryMock : ThingsRepository {
                     "of native English speakers have read this book at least once.",
             state = LOST
         ),
-        SimpleThing(
+        Thing(
             id = "AD36D099C15BDBD12F3A2209F57203B7",
             name = "Mieko and the Fifth Treasure – Eleanor Coerr",
             description = "This book is not really so famous, but it is on the recommended book " +
@@ -62,7 +62,7 @@ class InMemoryThingsRepositoryMock : ThingsRepository {
                     "many interesting things about Japan and its culture.",
             state = BORROWED
         ),
-        SimpleThing(
+        Thing(
             id = "110498DD8F61517AF75D8327ECBA3FA3",
             name = "The Outsiders – S.E. Hinton",
             description = "This short novel is perfect for EFL learners. It has modern themes " +

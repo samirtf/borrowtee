@@ -15,5 +15,5 @@ fun setRecyclerViewItems(
         recyclerView.adapter = adapter
     }
 
-    adapter.updateData(items.orEmpty())
+    adapter.submitList(items.orEmpty())
 }
