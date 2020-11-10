@@ -4,7 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "thing_table")
+const val tableNameThing = "thing_table"
+
+@Entity(tableName = tableNameThing)
 class ThingModel(
     @PrimaryKey(autoGenerate = true) val id: String,
     @ColumnInfo(name = "name") val name: String,
