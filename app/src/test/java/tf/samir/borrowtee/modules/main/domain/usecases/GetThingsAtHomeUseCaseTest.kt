@@ -8,7 +8,7 @@ import org.junit.Test
 import org.junit.Assert.*
 import tf.samir.borrowtee.modules.main.domain.entities.AT_HOME
 import tf.samir.borrowtee.modules.main.domain.entities.Thing
-import tf.samir.borrowtee.modules.main.domain.repositories.ThingsRepository
+import tf.samir.borrowtee.modules.main.domain.repositories.ThingRepository
 
 class GetThingsAtHomeUseCaseTest {
 
@@ -16,7 +16,7 @@ class GetThingsAtHomeUseCaseTest {
 
     @Before
     fun setUp() {
-        val thingsRepositoryMock = mock<ThingsRepository>{
+        val thingsRepositoryMock = mock<ThingRepository>{
             on { getThingsAtHome() } doReturn listOf(
                 Thing(
                     id = "287584469D1068E856D9699F40255C27",

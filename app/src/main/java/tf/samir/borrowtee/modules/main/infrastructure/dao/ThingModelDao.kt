@@ -9,7 +9,7 @@ import tf.samir.borrowtee.modules.main.infrastructure.model.tableNameThing
 interface ThingModelDao {
 
     @Query("SELECT * FROM $tableNameThing ORDER BY name ASC")
-    suspend fun getAllThings(): Flow<List<ThingModel>>
+    fun getAllThings(): Flow<List<ThingModel>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(thing: ThingModel)
