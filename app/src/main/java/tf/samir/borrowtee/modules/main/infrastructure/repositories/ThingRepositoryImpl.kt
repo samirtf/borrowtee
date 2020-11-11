@@ -14,7 +14,7 @@ class ThingRepositoryImpl(private val dbMapper: DbMapper, thingModelDao: ThingMo
     override val allThings: Flow<List<Thing>> = thingModelDao
         .getAllThingsDistinctUntilChanged().map { dbMapper.mapThingModelsToDomain(it) }
 
-    override val thingsAtHome: Flow<List<Thing>>
-        get() = TODO("Not yet implemented")
+    override val thingsAtHome: Flow<List<Thing>> = thingModelDao
+        .getAllThingsAtHomeDistinctUntilChanged().map { dbMapper.mapThingModelsToDomain(it) }
 
 }
