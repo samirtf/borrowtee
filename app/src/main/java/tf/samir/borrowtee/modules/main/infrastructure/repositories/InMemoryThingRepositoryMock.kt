@@ -4,9 +4,9 @@ import tf.samir.borrowtee.modules.main.domain.entities.AT_HOME
 import tf.samir.borrowtee.modules.main.domain.entities.BORROWED
 import tf.samir.borrowtee.modules.main.domain.entities.LOST
 import tf.samir.borrowtee.modules.main.domain.entities.Thing
-import tf.samir.borrowtee.modules.main.domain.repositories.ThingsRepository
+import tf.samir.borrowtee.modules.main.domain.repositories.ThingRepository
 
-class InMemoryThingsRepositoryMock : ThingsRepository {
+class InMemoryThingRepositoryMock : ThingRepository {
     override fun getThingsAtHome(): List<Thing> {
         return things
     }
