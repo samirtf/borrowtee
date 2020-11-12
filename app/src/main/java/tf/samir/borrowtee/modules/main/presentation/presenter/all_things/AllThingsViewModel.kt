@@ -13,9 +13,8 @@ class AllThingsViewModel() : ViewModel() {
     private val repository: ThingRepository = InMemoryThingRepositoryMock()
 
     val things = liveData {
-        repository.allThings.map {
-                t -> t.map { it.toRecyclerItem() }
-        }.collect { emit(it) }
+        repository.allThings.map { thingList -> thingList.map { it.toRecyclerItem() } }
+            .collect { emit(it) }
     }
 
 }
