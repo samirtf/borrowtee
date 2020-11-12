@@ -1,19 +1,11 @@
 package tf.samir.borrowtee.modules.main.infrastructure.repositories
 
-import tf.samir.borrowtee.modules.main.domain.entities.AT_HOME
-import tf.samir.borrowtee.modules.main.domain.entities.BORROWED
-import tf.samir.borrowtee.modules.main.domain.entities.LOST
-import tf.samir.borrowtee.modules.main.domain.entities.Thing
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import tf.samir.borrowtee.modules.main.domain.entities.*
 import tf.samir.borrowtee.modules.main.domain.repositories.ThingRepository
 
 class InMemoryThingRepositoryMock : ThingRepository {
-    override fun getThingsAtHome(): List<Thing> {
-        return things
-    }
-
-    override fun getAllThings(): List<Thing> {
-        return things
-    }
 
     private val things = listOf(
         Thing(
@@ -77,4 +69,12 @@ class InMemoryThingRepositoryMock : ThingRepository {
             state = AT_HOME
         )
     )
+
+    override val allThings: Flow<List<Thing>>
+        get() = flow { emit(things) }
+
+    override val thingsAtHome: Flow<List<Thing>>
+        get() = flow { emit(things.filter { it.isAtHome() }) }
 }
+
+

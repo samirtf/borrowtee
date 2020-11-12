@@ -1,11 +1,13 @@
 package tf.samir.borrowtee.modules.main.view.all_things
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import tf.samir.borrowtee.databinding.FragmentAllThingsBinding
 import tf.samir.borrowtee.modules.main.presentation.presenter.all_things.AllThingsViewModel
 
@@ -27,11 +29,6 @@ class AllThingsFragment : Fragment() {
                 it.lifecycleOwner = viewLifecycleOwner
             }
         return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        allThingsViewModel.loadData()
     }
 
     override fun onDestroy() {
