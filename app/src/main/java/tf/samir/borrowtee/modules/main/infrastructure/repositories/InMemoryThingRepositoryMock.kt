@@ -4,8 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import tf.samir.borrowtee.modules.main.domain.entities.*
 import tf.samir.borrowtee.modules.main.domain.repositories.ThingRepository
+import javax.inject.Inject
 
-class InMemoryThingRepositoryMock : ThingRepository {
+class InMemoryThingRepositoryMock @Inject constructor() : ThingRepository {
 
     private val things = listOf(
         Thing(
