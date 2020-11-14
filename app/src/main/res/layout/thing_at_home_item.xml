@@ -4,7 +4,7 @@
     <data>
         <variable
             name="thing"
-            type="tf.samir.borrowtee.modules.main.domain.entities.Thing" />
+            type="tf.samir.domain.entities.ThingEntity" />
     </data>
 
     <androidx.cardview.widget.CardView

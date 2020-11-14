@@ -50,6 +50,7 @@ class AllThingsFragment : Fragment() {
                     allThingsViewModel.onActionComplete()
                     navigateToCreateBorrowing()
                 }
+                else -> {}
             }
         })
     }

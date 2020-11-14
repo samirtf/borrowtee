@@ -2,10 +2,10 @@ package tf.samir.borrowtee.viewbase
 
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
-import tf.samir.borrowtee.modules.main.domain.entities.Thing
+import tf.samir.domain.entities.ThingEntity
 
 data class RecyclerItem(
-    val data: Thing,
+    val data: ThingEntity,
     @LayoutRes val layoutId: Int,
     val variableId: Int
 ) {
