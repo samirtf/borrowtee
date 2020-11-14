@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="tf.samir.borrowtee.modules.main.presentation.presenter.all_things.AllThingsViewModel" />
@@ -17,15 +18,15 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="0dp"
             android:scrollbars="vertical"
+            app:items="@{viewModel.things}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:clipToPadding="false"
-            android:padding="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:items="@{viewModel.things}"
             tools:listitem="@layout/thing_at_home_item" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -40,10 +41,11 @@
             android:contentDescription="@string/borrow"
             android:src="@drawable/ic_add"
             app:fabSize="normal"
-            app:rippleColor="@android:color/white"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:rippleColor="@android:color/white"
+            android:onClick="@{() -> viewModel.onNavigateToCreateBorrowing()}"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
