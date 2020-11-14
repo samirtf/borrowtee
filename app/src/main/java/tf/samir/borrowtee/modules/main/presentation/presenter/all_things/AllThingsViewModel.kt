@@ -8,11 +8,12 @@ import androidx.lifecycle.liveData
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import tf.samir.borrowtee.modules.main.utils.toRecyclerItem
-import tf.samir.domain.repository.ThingRepository
+import tf.samir.borrowtee.viewbase.RecyclerItem
+import tf.samir.domain.usecases.GetThingsUseCase
 import timber.log.Timber
 
 
-class AllThingsViewModel @ViewModelInject constructor(private val repository: ThingRepository) : ViewModel() {
+class AllThingsViewModel @ViewModelInject constructor(private val getThingsUseCase: GetThingsUseCase) : ViewModel() {
     companion object {
         const val TAG = "AllThingsViewModel"
         enum class Action {
@@ -20,9 +21,8 @@ class AllThingsViewModel @ViewModelInject constructor(private val repository: Th
         }
     }
 
-    val things = liveData {
-        repository.allThings.map { thingList -> thingList.map { it.toRecyclerItem() } }
-            .collect { emit(it) }
+    val things = liveData<List<RecyclerItem>> {
+        getThingsUseCase.invoke().map { thingList -> thingList.map { it.toRecyclerItem() } }.collect { emit(it) }
     }
 
     private val _event = MutableLiveData(Action.Idle)
