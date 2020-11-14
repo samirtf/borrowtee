@@ -39,6 +39,8 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/borrow"
             android:src="@drawable/ic_add"
+            app:fabSize="normal"
+            app:rippleColor="@android:color/white"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
