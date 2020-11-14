@@ -1,6 +1,5 @@
 package tf.samir.borrowtee.modules.main.domain.usecases
 
-import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.Before
 import org.junit.Test
@@ -8,7 +7,7 @@ import org.junit.Test
 import org.junit.Assert.*
 import tf.samir.borrowtee.modules.main.domain.entities.AT_HOME
 import tf.samir.borrowtee.modules.main.domain.entities.Thing
-import tf.samir.borrowtee.modules.main.domain.repositories.ThingRepository
+import tf.samir.domain.repositories.ThingRepository
 
 class GetThingsAtHomeUseCaseTest {
 
@@ -16,7 +15,7 @@ class GetThingsAtHomeUseCaseTest {
 
     @Before
     fun setUp() {
-        val thingsRepositoryMock = mock<ThingRepository>{
+        val thingsRepositoryMock = mock<tf.samir.domain.repositories.ThingRepository>{
             on { getThingsAtHome() } doReturn listOf(
                 Thing(
                     id = "287584469D1068E856D9699F40255C27",

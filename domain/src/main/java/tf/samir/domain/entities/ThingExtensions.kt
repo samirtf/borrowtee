@@ -1,5 +1,5 @@
 package tf.samir.domain.entities
 
-fun Thing.isAtHome(): Boolean {
+fun ThingEntity.isAtHome(): Boolean {
     return this.state == AT_HOME
 }

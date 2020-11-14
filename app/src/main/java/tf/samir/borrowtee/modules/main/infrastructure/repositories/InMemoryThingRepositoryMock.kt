@@ -3,10 +3,11 @@ package tf.samir.borrowtee.modules.main.infrastructure.repositories
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import tf.samir.borrowtee.modules.main.domain.entities.*
-import tf.samir.borrowtee.modules.main.domain.repositories.ThingRepository
+import tf.samir.domain.repositories.ThingRepository
 import javax.inject.Inject
 
-class InMemoryThingRepositoryMock @Inject constructor() : ThingRepository {
+class InMemoryThingRepositoryMock @Inject constructor() :
+    tf.samir.domain.repositories.ThingRepository {
 
     private val things = listOf(
         Thing(

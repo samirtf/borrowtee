@@ -1,13 +1,12 @@
-package tf.samir.borrowtee.modules.main.infrastructure
+package tf.samir.infrastructure
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import tf.samir.borrowtee.modules.main.infrastructure.dao.ThingModelDao
-import tf.samir.borrowtee.modules.main.infrastructure.model.ThingModel
+import tf.samir.infrastructure.dao.ThingModelDao
 
-@Database(entities = arrayOf(ThingModel::class), version = 1, exportSchema = false)
+@Database(entities = [tf.samir.data.model.LocalThingModel::class], version = 1, exportSchema = false)
 abstract class BorrowteeDatabase : RoomDatabase() {
 
     abstract fun thingModelDao(): ThingModelDao

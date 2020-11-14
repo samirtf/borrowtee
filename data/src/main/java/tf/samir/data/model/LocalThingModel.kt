@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 const val tableNameThing = "thing_table"
 
 @Entity(tableName = tableNameThing)
-class ThingModel(
+class LocalThingModel(
     @PrimaryKey val id: String,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "description") val description: String,
