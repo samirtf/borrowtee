@@ -16,9 +16,7 @@ class AllThingsFragment : Fragment() {
     private var _binding: FragmentAllThingsBinding? = null
     private val binding get() = _binding!!
 
-    val allThingsViewModel by viewModels<AllThingsViewModel>()
-//    private val allThingsViewModel: AllThingsViewModel by viewModels()
-
+    private val allThingsViewModel by viewModels<AllThingsViewModel>()
 
     override fun onCreateView(
             inflater: LayoutInflater,
