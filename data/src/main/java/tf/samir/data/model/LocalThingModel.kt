@@ -1,4 +1,4 @@
-package tf.samir.borrowtee.modules.main.infrastructure.model
+package tf.samir.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
