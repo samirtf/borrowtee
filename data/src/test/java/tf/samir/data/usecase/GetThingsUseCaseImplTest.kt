@@ -13,7 +13,7 @@ import tf.samir.domain.entities.AT_HOME
 import tf.samir.domain.entities.ThingEntity
 import tf.samir.domain.repository.ThingRepository
 
-class GetThingsAtHomeUseCaseCaseTest {
+class GetThingsUseCaseImplTest {
 
     private lateinit var thingsAtHome: Flow<List<ThingEntity>>
 
@@ -46,7 +46,7 @@ class GetThingsAtHomeUseCaseCaseTest {
             }
         }
 
-        val getThingsAtHomeUseCase = GetThingsAtHomeUseCaseCase(
+        val getThingsAtHomeUseCase = GetThingsUseCaseImpl(
             thingsRepositoryMock
         )
         thingsAtHome = getThingsAtHomeUseCase.invoke()
