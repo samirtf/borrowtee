@@ -5,11 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import tf.samir.domain.repositories.ThingRepository
 import timber.log.Timber
 
 
-class AllThingsViewModel @ViewModelInject constructor(private val repository: tf.samir.domain.repositories.ThingRepository) : ViewModel() {
+class AllThingsViewModel @ViewModelInject constructor(private val repository: tf.samir.domain.repository.ThingRepository) : ViewModel() {
     companion object {
         const val TAG = "AllThingsViewModel"
         enum class Action {

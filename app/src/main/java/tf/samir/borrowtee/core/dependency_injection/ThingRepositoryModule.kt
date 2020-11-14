@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import tf.samir.domain.repositories.ThingRepository
-import tf.samir.borrowtee.modules.main.infrastructure.repositories.InMemoryThingRepositoryMock
+import tf.samir.data.repository.InMemoryThingRepositoryMock
+import tf.samir.domain.repository.ThingRepository
 
 // Repositories will live same as the activity that requires them
 @Module
@@ -13,5 +13,5 @@ import tf.samir.borrowtee.modules.main.infrastructure.repositories.InMemoryThing
 abstract class ThingRepositoryModule {
 
     @Binds
-    abstract fun providesThingRepository(impl: InMemoryThingRepositoryMock): tf.samir.domain.repositories.ThingRepository
+    abstract fun providesThingRepository(impl: InMemoryThingRepositoryMock): ThingRepository
 }

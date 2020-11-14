@@ -1,21 +1,19 @@
-package tf.samir.borrowtee.model
+package tf.samir.domain.entities
 
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import tf.samir.borrowtee.modules.main.domain.entities.AT_HOME
-import tf.samir.borrowtee.modules.main.domain.entities.Thing
 
 @RunWith(JUnit4::class)
 class ThingTest {
 
-    private lateinit var thing: Thing
+    private lateinit var thing: ThingEntity
 
     @Before
     fun setUp() {
-        thing = Thing(
+        thing = ThingEntity(
             id = "287584469D1068E856D9699F40255C27",
             name = "Bluehand Protocol",
             description = "The Bluehand Protocol: Zombies is the definitive guide against the dead " +

@@ -1,4 +1,4 @@
-package tf.samir.domain.repositories
+package tf.samir.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 import tf.samir.domain.entities.ThingEntity
