@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
-import tf.samir.borrowtee.modules.main.domain.repositories.ThingRepository
 import tf.samir.borrowtee.modules.main.utils.toRecyclerItem
+import tf.samir.domain.repository.ThingRepository
 import timber.log.Timber
 
 
