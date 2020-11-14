@@ -1,4 +1,4 @@
-package tf.samir.borrowtee.modules.main.domain.entities
+package tf.samir.domain.entities
 
 fun Thing.isAtHome(): Boolean {
     return this.state == AT_HOME
