@@ -17,17 +17,3 @@ class ThingRepositoryImpl(
     override val thingsAtHome: Flow<List<ThingEntity>> = localDataSource.getAllThingsBy(AT_HOME)
 
 }
-
-//class ThingRepositoryImpl(
-//    private val dbMapper: DbMapper,
-//    private val thingModelDao: tf.samir.infrastructure.dao.ThingModelDao): ThingRepository {
-//
-//    @ExperimentalCoroutinesApi
-//    override val allThings: Flow<List<ThingEntity>> = thingModelDao
-//        .getAllThingsDistinctUntilChanged().map { dbMapper.mapThingModelsToDomain(it) }
-//
-//    @ExperimentalCoroutinesApi
-//    override val thingsAtHome: Flow<List<ThingEntity>> = thingModelDao
-//        .getAllThingsAtHomeDistinctUntilChanged().map { dbMapper.mapThingModelsToDomain(it) }
-//
-//}
