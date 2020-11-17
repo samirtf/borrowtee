@@ -28,7 +28,7 @@ class CreateBorrowingViewModel() : ViewModel() {
         Timber.tag(TAG).i( "$TAG created!")
     }
 
-    fun createBorrowing() {
+    fun onCreateBorrowing() {
         _event.value = State.CreateBorrowing
         Timber.tag(TAG).i( "Creating borrowing...")
         performBorrowingCreation()
