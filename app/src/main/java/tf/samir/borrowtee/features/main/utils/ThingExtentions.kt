@@ -1,4 +1,4 @@
-package tf.samir.borrowtee.modules.main.utils
+package tf.samir.borrowtee.features.main.utils
 
 import tf.samir.borrowtee.BR
 import tf.samir.borrowtee.R

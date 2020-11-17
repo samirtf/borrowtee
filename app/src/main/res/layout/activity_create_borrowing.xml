@@ -4,19 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".modules.borrowing.view.create.CreateBorrowingActivity">
+    tools:context=".features.borrowing.view.create.CreateBorrowingActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="188dp"
-        android:layout_marginTop="353dp"
-        android:layout_marginEnd="165dp"
-        android:layout_marginBottom="359dp"
-        android:text="Create Borrowing"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:hint="@string/form_create_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/form_create_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutName">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/form_create_borrow_it"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

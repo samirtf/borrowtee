@@ -4,4 +4,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="borrow">Borrow</string>
+    <string name="form_create_name">Name</string>
+    <string name="form_create_description">Descrição do item.</string>
+    <string name="form_create_borrow_it">Borrow it</string>
 </resources>

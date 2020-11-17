@@ -1,4 +1,4 @@
-package tf.samir.borrowtee.modules.main.presentation.presenter.dashboard
+package tf.samir.borrowtee.features.main.presentation.presenter.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
