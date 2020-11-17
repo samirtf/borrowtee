@@ -1,4 +1,4 @@
-package tf.samir.borrowtee.modules.main.view.notifications
+package tf.samir.borrowtee.features.main.view.notifications
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import tf.samir.borrowtee.R
-import tf.samir.borrowtee.modules.main.presentation.presenter.notifications.NotificationsViewModel
+import tf.samir.borrowtee.features.main.presentation.presenter.notifications.NotificationsViewModel
 
 class NotificationsFragment : Fragment() {
 

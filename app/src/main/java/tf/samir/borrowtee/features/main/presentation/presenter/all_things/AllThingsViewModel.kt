@@ -1,4 +1,4 @@
-package tf.samir.borrowtee.modules.main.presentation.presenter.all_things
+package tf.samir.borrowtee.features.main.presentation.presenter.all_things
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
-import tf.samir.borrowtee.modules.main.utils.toRecyclerItem
+import tf.samir.borrowtee.features.main.utils.toRecyclerItem
 import tf.samir.borrowtee.viewbase.RecyclerItem
 import tf.samir.domain.usecases.GetThingsUseCase
 import timber.log.Timber

@@ -1,4 +1,4 @@
-package tf.samir.borrowtee.modules.main.presentation.presenter.notifications
+package tf.samir.borrowtee.features.main.presentation.presenter.notifications
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

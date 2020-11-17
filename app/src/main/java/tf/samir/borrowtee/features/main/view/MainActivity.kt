@@ -1,4 +1,4 @@
-package tf.samir.borrowtee.modules.main.view
+package tf.samir.borrowtee.features.main.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

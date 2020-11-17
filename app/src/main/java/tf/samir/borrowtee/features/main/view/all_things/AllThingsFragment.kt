@@ -1,10 +1,9 @@
-package tf.samir.borrowtee.modules.main.view.all_things
+package tf.samir.borrowtee.features.main.view.all_things
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import tf.samir.borrowtee.databinding.FragmentAllThingsBinding
-import tf.samir.borrowtee.modules.main.presentation.presenter.all_things.AllThingsViewModel
+import tf.samir.borrowtee.features.main.presentation.presenter.all_things.AllThingsViewModel
 import timber.log.Timber
 
 @AndroidEntryPoint
