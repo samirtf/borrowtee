@@ -11,9 +11,11 @@ import kotlin.random.Random
 class CreateBorrowingViewModel() : ViewModel() {
     companion object {
         const val TAG = "CreateBorrowingVM"
-        enum class State {
-            Idle, CreateBorrowing, Success, Error
-        }
+
+    }
+
+    enum class State {
+        Idle, CreateBorrowing, Success, Error
     }
 
     private val borrowing: LiveData<ThingEntity>? = null
