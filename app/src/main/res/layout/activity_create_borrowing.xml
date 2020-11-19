@@ -5,6 +5,9 @@
 
     <data>
         <variable
+            name="thing"
+            type="tf.samir.borrowtee.features.borrowing.presentation.presenter.create.ThingData" />
+        <variable
             name="viewModel"
             type="tf.samir.borrowtee.features.borrowing.presentation.presenter.create.CreateBorrowingViewModel" />
     </data>
@@ -26,6 +29,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputName"
+                android:text="@={thing.name}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -60,7 +64,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{() -> viewModel.onCreateBorrowing()}"/>
+            android:onClick="@{() -> viewModel.onCreateBorrowing(thing)}"/>
 
         <ProgressBar
             android:id="@+id/progressBar"

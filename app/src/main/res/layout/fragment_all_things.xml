@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="tf.samir.borrowtee.features.main.presentation.presenter.all_things.AllThingsViewModel" />

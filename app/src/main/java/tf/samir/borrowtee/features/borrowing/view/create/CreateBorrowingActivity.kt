@@ -2,13 +2,16 @@ package tf.samir.borrowtee.features.borrowing.view.create
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import tf.samir.borrowtee.R
 import tf.samir.borrowtee.databinding.ActivityCreateBorrowingBinding
 import tf.samir.borrowtee.features.borrowing.presentation.presenter.create.CreateBorrowingViewModel
+import tf.samir.borrowtee.features.borrowing.presentation.presenter.create.ThingData
 import tf.samir.borrowtee.features.main.view.all_things.AllThingsFragment
 import timber.log.Timber
 
@@ -27,6 +30,7 @@ class CreateBorrowingActivity : AppCompatActivity() {
         // DataBindingUtil.
         val binding: ActivityCreateBorrowingBinding = DataBindingUtil.setContentView(this, R.layout.activity_create_borrowing)
         binding.viewModel = viewModel
+        binding.thing = ThingData("trajano")
         // Specify the current activity as the lifecycle owner.
         binding.lifecycleOwner = this
 
