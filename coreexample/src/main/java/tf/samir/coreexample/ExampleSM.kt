@@ -1,4 +1,4 @@
-package tf.samir.core.example
+package tf.samir.coreexample
 
 data class ExampleViewState(val fetchStatus: FetchStatus, val itemsList: List<String>)
 
