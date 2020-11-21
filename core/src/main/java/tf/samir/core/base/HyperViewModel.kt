@@ -1,6 +1,5 @@
 package tf.samir.core.base
 
-import android.app.Application
 import androidx.annotation.CallSuper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,8 +9,7 @@ import timber.log.Timber
 /**
  * @author https://github.com/RohitSurwase
  */
-open class HyperViewModel<STATE, EFFECT, EVENT>(application: Application) :
-    ViewModel(), ViewEventHandlerContract<EVENT> {
+open class HyperViewModel<STATE, EFFECT, EVENT> : ViewModel(), ViewEventHandlerContract<EVENT> {
 
     companion object {
         const val TAG = "AndroidHyperViewModel"
