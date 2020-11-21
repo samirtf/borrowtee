@@ -2,7 +2,7 @@ package tf.samir.borrowtee.features.main.presentation.presenter.all_things
 
 import tf.samir.domain.entities.ThingEntity
 
-data class AllThingViewState(val fetchStatus: FetchStatus, val allThings: List<ThingEntity>)
+data class AllThingsViewState(val fetchStatus: FetchStatus, val allThings: List<ThingEntity>)
 
 sealed class AllThingsEffect {
     data class ShowToast(val message: String) : AllThingsEffect()

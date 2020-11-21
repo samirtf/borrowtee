@@ -43,6 +43,7 @@ android {
 dependencies {
     api project(':domain')
     api project(':data')
+    api project(':core')
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
