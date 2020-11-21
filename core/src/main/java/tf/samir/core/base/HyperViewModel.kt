@@ -2,16 +2,16 @@ package tf.samir.core.base
 
 import android.app.Application
 import androidx.annotation.CallSuper
-import androidx.annotation.MainThread
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import timber.log.Timber
-import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * @author https://github.com/RohitSurwase
  */
-open class AndroidHyperViewModel<STATE, EFFECT, EVENT>(application: Application) :
-AndroidViewModel(application), ViewEventHandlerContract<EVENT> {
+open class HyperViewModel<STATE, EFFECT, EVENT>(application: Application) :
+    ViewModel(), ViewEventHandlerContract<EVENT> {
 
     companion object {
         const val TAG = "AndroidHyperViewModel"
@@ -55,23 +55,4 @@ AndroidViewModel(application), ViewEventHandlerContract<EVENT> {
         Timber.tag(TAG).d("onCleared")
     }
 
-}
-
-class SingleLiveEvent<T> : MutableLiveData<T>() {
-    private val pending = AtomicBoolean(false)
-
-    @MainThread
-    override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
-        super.observe(owner, Observer<T> { t ->
-            if (pending.compareAndSet(true, false)) {
-                observer.onChanged(t)
-            }
-        })
-    }
-
-    @MainThread
-    override fun setValue(t: T?) {
-        pending.set(true)
-        super.setValue(t)
-    }
 }
