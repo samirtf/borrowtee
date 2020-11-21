@@ -1,9 +1,9 @@
-package tf.samir.core.example
+package tf.samir.coreexample
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ts.samir.core.base.AndroidHyperViewModel
+import tf.samir.core.base.AndroidHyperViewModel
 import kotlin.random.Random
 
 class ExampleViewModel(application: Application) :
@@ -38,7 +38,7 @@ class ExampleViewModel(application: Application) :
     private fun fetchExampleItems() {
         viewState = viewState.copy(fetchStatus = FetchStatus.Fetching)
         viewModelScope.launch {
-            val result = if (Random.nextBoolean()) LCE.Success(data = listOf("rimas", "onajart", "asotief")) else LCE.Error(Exception("something went wrong"))
+            val result: LCE<List<String>> = if (Random.nextBoolean()) LCE.Success(data = listOf("rimas", "onajart", "asotief")) else LCE.Error(Exception("something went wrong"))
             when (result) {
                 is LCE.Error<*> -> {
                     viewState = viewState.copy(fetchStatus = FetchStatus.Fetched)

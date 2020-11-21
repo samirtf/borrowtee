@@ -1,4 +1,4 @@
-package ts.samir.core.base
+package tf.samir.core.base
 
 /**
  * @author https://github.com/RohitSurwase
