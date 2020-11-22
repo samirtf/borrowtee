@@ -1,15 +1,11 @@
 package tf.samir.core.base
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import timber.log.Timber
 
-/**
- * @author Rohit Surwase
- * @author https://github.com/RohitSurwase
- */
-abstract class HyperActivity<STATE, EFFECT, EVENT, ViewModel: HyperViewModel<STATE, EFFECT, EVENT>> : AppCompatActivity() {
+abstract class HyperFragment<STATE, EFFECT, EVENT, ViewModel: HyperViewModel<STATE, EFFECT, EVENT>> : Fragment() {
 
     companion object {
         const val TAG = "HyperActivity"
