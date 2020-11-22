@@ -8,5 +8,5 @@ import javax.inject.Inject
 
 class GetThingsUseCaseImpl @Inject constructor(private val thingRepository: ThingRepository) :
     GetThingsUseCase {
-    override operator fun invoke(): Flow<List<ThingEntity>> = thingRepository.allThings
+    override operator fun invoke(): Result<Flow<List<ThingEntity>>> = kotlin.runCatching { thingRepository.allThings }
 }

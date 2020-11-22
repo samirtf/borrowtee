@@ -15,5 +15,13 @@ dependencies {
 
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+compileKotlin {
+    kotlinOptions.freeCompilerArgs = ["-Xallow-result-return-type"]
+}
+
+compileTestKotlin {
+    kotlinOptions.freeCompilerArgs = ["-Xallow-result-return-type"]
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
