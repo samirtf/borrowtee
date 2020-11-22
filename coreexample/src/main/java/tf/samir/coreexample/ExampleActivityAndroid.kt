@@ -5,10 +5,10 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_example.*
-import tf.samir.core.base.HyperActivity
+import tf.samir.core.base.AndroidHyperActivity
 
 
-class ExampleActivity : HyperActivity<ExampleViewState, ExampleViewEffect, ExampleViewEvent, ExampleViewModel>(){
+class ExampleActivityAndroid : AndroidHyperActivity<ExampleViewState, ExampleViewEffect, ExampleViewEvent, ExampleViewModel>(){
 
     override val viewModel: ExampleViewModel by viewModels()
 

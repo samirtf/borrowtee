@@ -9,10 +9,10 @@ import timber.log.Timber
  * @author Rohit Surwase
  * @author https://github.com/RohitSurwase
  */
-abstract class HyperActivity<STATE, EFFECT, EVENT, ViewModel: HyperViewModel<STATE, EFFECT, EVENT>> : AppCompatActivity() {
+abstract class AndroidHyperActivity<STATE, EFFECT, EVENT, ViewModel: AndroidHyperViewModel<STATE, EFFECT, EVENT>> : AppCompatActivity() {
 
     companion object {
-        const val TAG = "HyperActivity"
+        const val TAG = "AndroidHyperActivity"
     }
 
     abstract val viewModel: ViewModel
