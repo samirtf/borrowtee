@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import timber.log.Timber
-import tf.samir.core.base.AndroidHyperViewModel
 
 /**
  * @author Rohit Surwase
