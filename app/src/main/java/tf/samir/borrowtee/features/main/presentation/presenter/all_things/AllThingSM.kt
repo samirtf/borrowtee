@@ -2,15 +2,16 @@ package tf.samir.borrowtee.features.main.presentation.presenter.all_things
 
 import tf.samir.domain.entities.ThingEntity
 
-data class AllThingViewState(val fetchStatus: FetchStatus, val allThings: List<ThingEntity>)
+data class AllThingsViewState(val fetchStatus: FetchStatus, val allThings: List<ThingEntity>)
 
-sealed class AllThingsEffect {
-    data class ShowToast(val message: String) : AllThingsEffect()
+sealed class AllThingsViewEffect {
+    data class ShowToast(val message: String) : AllThingsViewEffect()
+    object NavigateToCreateBorrowingPage : AllThingsViewEffect()
 }
 
-sealed class AllThingsEvent {
-    object FabClicked : AllThingsEvent()
-    object FetchAllThings : AllThingsEvent()
+sealed class AllThingsViewEvent {
+    object FabClicked : AllThingsViewEvent()
+    object FetchAllThingsView : AllThingsViewEvent()
 }
 
 sealed class FetchStatus {
