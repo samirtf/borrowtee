@@ -1,15 +1,18 @@
 package tf.samir.borrowtee.features.main.presentation.presenter.all_things
 
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import tf.samir.borrowtee.features.main.utils.toRecyclerItem
+import tf.samir.borrowtee.viewbase.RecyclerItem
 import tf.samir.core.base.HyperViewModel
 import tf.samir.domain.usecases.GetThingsUseCase
 import timber.log.Timber
 
-class AllThingsVM(private val getThingsUseCase: GetThingsUseCase) :
+class AllThingsVM @ViewModelInject constructor(private val getThingsUseCase: GetThingsUseCase) :
     HyperViewModel<AllThingsViewState, AllThingsViewEffect, AllThingsViewEvent>() {
 
     companion object {
@@ -20,6 +23,10 @@ class AllThingsVM(private val getThingsUseCase: GetThingsUseCase) :
         viewState =
             AllThingsViewState(fetchStatus = FetchStatus.NotFetched, allThings = emptyList())
         Timber.tag(TAG).i("$TAG created!")
+    }
+
+    val things = liveData<List<RecyclerItem>> {
+        emit(viewState.allThings)
     }
 
     override fun handle(viewEvent: AllThingsViewEvent) {

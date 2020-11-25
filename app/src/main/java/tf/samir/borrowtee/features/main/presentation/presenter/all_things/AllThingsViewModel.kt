@@ -22,7 +22,11 @@ class AllThingsViewModel @ViewModelInject constructor(private val getThingsUseCa
     }
 
     val things = liveData<List<RecyclerItem>> {
-        getThingsUseCase.invoke().map { thingList -> thingList.map { it.toRecyclerItem() } }.collect { emit(it) }
+        getThingsUseCase.invoke().fold({ flow ->
+            flow.map { thingList -> thingList.map { it.toRecyclerItem() } }.collect { emit(it) }
+        }, {
+            emit(emptyList())
+        })
     }
 
     private val _event = MutableLiveData(Action.Idle)
