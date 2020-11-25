@@ -16,7 +16,7 @@ class AllThingsViewModel @ViewModelInject constructor(private val getThingsUseCa
     HyperViewModel<AllThingsViewState, AllThingsViewEffect, AllThingsViewEvent>() {
 
     companion object {
-        const val TAG = "AllThingsVM"
+        const val TAG = "AllThingsViewModel"
     }
 
     init {
