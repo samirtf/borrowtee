@@ -16,8 +16,8 @@ import tf.samir.core.base.HyperFragment
 import timber.log.Timber
 
 @AndroidEntryPoint
-class HyperAllThingsFragment :
-    HyperFragment<AllThingsViewState, AllThingsViewEffect, AllThingsViewEvent, AllThingsVM>() {
+class AllThingsFragment :
+    HyperFragment<AllThingsViewState, AllThingsViewEffect, AllThingsViewEvent, AllThingsViewModel>() {
 
     companion object {
         const val TAG = "AllThingsFragment"
@@ -27,7 +27,7 @@ class HyperAllThingsFragment :
     private val binding: ViewDataBinding
         get() = _binding!!
 
-    override val viewModel: AllThingsVM by viewModels()
+    override val viewModel: AllThingsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -90,7 +90,7 @@ class HyperAllThingsFragment :
 
     private fun navigateToCreateBorrowing() {
         this.findNavController().navigate(
-            HyperAllThingsFragmentDirections
+            AllThingsFragmentDirections
                 .actionNavigationHomeToCreateBorrowingActivity()
         )
     }

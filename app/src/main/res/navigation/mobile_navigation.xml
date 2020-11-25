@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="tf.samir.borrowtee.features.main.view.all_things.HyperAllThingsFragment"
+        android:name="tf.samir.borrowtee.features.main.view.all_things.AllThingsFragment"
         android:label="@string/title_all_things"
         tools:layout="@layout/fragment_all_things" >
         <action

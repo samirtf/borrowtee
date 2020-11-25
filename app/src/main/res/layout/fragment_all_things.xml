@@ -7,7 +7,7 @@
         <import type="tf.samir.borrowtee.features.main.presentation.presenter.all_things.AllThingsViewEvent"/>
         <variable
             name="viewModel"
-            type="tf.samir.borrowtee.features.main.presentation.presenter.all_things.AllThingsVM" />
+            type="tf.samir.borrowtee.features.main.presentation.presenter.all_things.AllThingsViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
