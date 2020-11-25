@@ -53,12 +53,6 @@ class AllThingsFragment :
             }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-
     override fun renderViewState(viewState: AllThingsViewState) {
         when (viewState.fetchStatus) {
             is FetchStatus.Fetched -> {
@@ -95,4 +89,8 @@ class AllThingsFragment :
         )
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
