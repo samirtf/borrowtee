@@ -54,11 +54,9 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:1.0.0-alpha02"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
 
+    // Jetpack ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
 
-//    //Coroutines
-//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1")
-//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1")
 
     // logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
