@@ -34,6 +34,7 @@ class ExampleActivityAndroid : AndroidHyperActivity<ExampleViewState, ExampleVie
     }
 
     override fun renderViewState(viewState: ExampleViewState) {
+
         when (viewState.fetchStatus) {
             is FetchStatus.Fetched -> {
                 srlNewsHome.isRefreshing = false

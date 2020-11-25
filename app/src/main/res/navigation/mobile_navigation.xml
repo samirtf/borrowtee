@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="tf.samir.borrowtee.features.main.view.all_things.AllThingsFragment"
+        android:name="tf.samir.borrowtee.features.main.view.all_things.HyperAllThingsFragment"
         android:label="@string/title_all_things"
         tools:layout="@layout/fragment_all_things" >
         <action
@@ -26,6 +26,7 @@
         android:name="tf.samir.borrowtee.features.main.view.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
     <activity
         android:id="@+id/createBorrowingActivity"
         android:name="tf.samir.borrowtee.features.borrowing.view.create.CreateBorrowingActivity"

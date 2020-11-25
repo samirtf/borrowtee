@@ -1,8 +1,8 @@
 package tf.samir.borrowtee.features.main.presentation.presenter.all_things
 
-import tf.samir.domain.entities.ThingEntity
+import tf.samir.borrowtee.viewbase.RecyclerItem
 
-data class AllThingsViewState(val fetchStatus: FetchStatus, val allThings: List<ThingEntity>)
+data class AllThingsViewState(val fetchStatus: FetchStatus, val allThings: List<RecyclerItem>)
 
 sealed class AllThingsViewEffect {
     data class ShowToast(val message: String) : AllThingsViewEffect()
@@ -11,7 +11,7 @@ sealed class AllThingsViewEffect {
 
 sealed class AllThingsViewEvent {
     object FabClicked : AllThingsViewEvent()
-    object FetchAllThingsView : AllThingsViewEvent()
+    object FetchAllThings : AllThingsViewEvent()
 }
 
 sealed class FetchStatus {
