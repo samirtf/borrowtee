@@ -38,7 +38,7 @@ class ExampleViewModel(application: Application) :
     private fun fetchExampleItems() {
         viewState = viewState.copy(fetchStatus = FetchStatus.Fetching)
         viewModelScope.launch {
-            val result: LCE<List<String>> = if (Random.nextBoolean()) LCE.Success(data = listOf("rimas", "onajart", "asotief")) else LCE.Error(Exception("something went wrong"))
+            val result: LCE<List<String>> = if (Random.nextBoolean()) LCE.Success(data = repository) else LCE.Error(Exception("something went wrong"))
             when (result) {
                 is LCE.Error<*> -> {
                     viewState = viewState.copy(fetchStatus = FetchStatus.Fetched)
