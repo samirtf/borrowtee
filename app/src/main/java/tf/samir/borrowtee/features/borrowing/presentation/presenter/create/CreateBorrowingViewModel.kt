@@ -2,56 +2,67 @@ package tf.samir.borrowtee.features.borrowing.presentation.presenter.create
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tf.samir.borrowtee.BR
+import tf.samir.core.base.HyperViewModel
 import timber.log.Timber
 import kotlin.random.Random
 
 
-class CreateBorrowingViewModel() : ViewModel() {
+class CreateBorrowingViewModel @ViewModelInject constructor() :
+    HyperViewModel<CreateBorrowingViewState, CreateBorrowingViewEffect, CreateBorrowingViewEvent>() {
+
     companion object {
         const val TAG = "CreateBorrowingVM"
-
     }
-
-    enum class State {
-        Idle, CreateBorrowing, Success, Error
-    }
-
-    private val _event = MutableLiveData(State.Idle)
-    val event: LiveData<State>
-        get() = _event
 
     init {
+        viewState = CreateBorrowingViewState(createStatus = CreateStatus.NotCreated)
         Timber.tag(TAG).i("$TAG created!")
     }
 
-    fun onCreateBorrowing(thingData: ThingData?) {
-        _event.value = State.CreateBorrowing
-        Timber.tag(TAG).i("Creating borrowing...")
-        Timber.tag(TAG).i("ThingData: ${thingData?.name ?: ""}")
-        performBorrowingCreation()
-    }
-
-    private fun performBorrowingCreation() {
-        viewModelScope.launch {
-            delay(3000)
-            if(Random.nextBoolean() && Random.nextBoolean()) {
-                _event.value = State.Error
-            } else {
-                _event.value = State.Success
-            }
+    override fun handle(viewEvent: CreateBorrowingViewEvent) {
+        super.handle(viewEvent)
+        when (viewEvent) {
+            is CreateBorrowingViewEvent.CreateClicked -> createBorrowing(viewEvent.thingData)
+            CreateBorrowingViewEvent.Cancel -> cancelCreation()
         }
     }
 
-    fun onActionComplete() {
-        Timber.tag(TAG).i("Borrowing created!")
-        _event.value = State.Idle
+    private fun createBorrowing(thingData: ThingData?) {
+        viewState = viewState.copy(createStatus = CreateStatus.Creating)
+        Timber.tag(TAG).i("Creating borrowing...")
+        Timber.tag(TAG).i("ThingData: ${thingData?.name ?: ""}")
+
+        viewModelScope.launch {
+            delay(3000)
+            val result = performBorrowingCreation()
+            result.fold({
+                viewState = viewState.copy(createStatus = CreateStatus.Created)
+                viewEffect = CreateBorrowingViewEffect.ShowDialog("Borrowing created.")
+            }, {
+                viewState = viewState.copy(createStatus = CreateStatus.NotCreated)
+                viewEffect = CreateBorrowingViewEffect.ShowDialog("Failed to create borrowing.")
+            })
+        }
+    }
+
+    private fun performBorrowingCreation(): Result<Boolean> {
+        return if (Random.nextBoolean().and(Random.nextBoolean())) {
+            Result.failure(throw Exception("Fail to create thing."))
+        } else {
+            Result.success(true)
+        }
+    }
+
+    private fun cancelCreation() {
+        viewModelScope.launch {
+            viewState = viewState.copy(createStatus = CreateStatus.NotCreated)
+            viewEffect = CreateBorrowingViewEffect.NavigateBack
+        }
     }
 
     override fun onCleared() {
