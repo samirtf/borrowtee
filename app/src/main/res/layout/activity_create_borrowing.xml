@@ -19,6 +19,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutName"
+            android:enabled="@{viewModel.viewStates.layoutNameEnable}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/form_create_name"
@@ -36,6 +37,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutDescription"
+            android:enabled="@{viewModel.viewStates.layoutDescriptionEnable}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/form_create_description"
@@ -54,6 +56,7 @@
 
         <Button
             android:id="@+id/button"
+            android:enabled="@{viewModel.viewStates.okButtonEnable}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -64,6 +67,7 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
+            app:setLoading="@{viewModel.viewStates.progressBar}"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
