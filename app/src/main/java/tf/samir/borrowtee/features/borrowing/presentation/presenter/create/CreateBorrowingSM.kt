@@ -5,8 +5,15 @@ data class CreateBorrowingViewState(
     val progressBar: Boolean = false,
     val isLayoutNameEnable: Boolean = true,
     val isLayoutDescriptionEnable: Boolean = true,
-    val isOkButtonEnable: Boolean = true
+    val isOkButtonEnable: Boolean = true,
+    val dialogState: DialogState = DialogState.NotShowing
 )
+
+sealed class DialogState{
+    object NotShowing : DialogState()
+    object ShowingSuccess : DialogState()
+    object ShowingFailure : DialogState()
+}
 
 sealed class CreateBorrowingViewEffect {
     object ShowSuccessDialog : CreateBorrowingViewEffect()
@@ -25,32 +32,36 @@ sealed class CreateStatus {
     object NotCreated : CreateStatus()
 }
 
+
 fun CreateBorrowingViewState.buildCreatingState(): CreateBorrowingViewState {
     return this.copy(
         createStatus = CreateStatus.Creating,
         progressBar = true,
         isLayoutNameEnable = false,
         isLayoutDescriptionEnable = false,
-        isOkButtonEnable = false
+        isOkButtonEnable = false,
+        dialogState = DialogState.NotShowing
     )
 }
 
-fun CreateBorrowingViewState.buildCreatedState(): CreateBorrowingViewState {
+fun CreateBorrowingViewState.buildCreatedState(dialogState: DialogState = DialogState.NotShowing): CreateBorrowingViewState {
     return this.copy(
         createStatus = CreateStatus.Created,
         progressBar = false,
         isLayoutNameEnable = false,
         isLayoutDescriptionEnable = false,
-        isOkButtonEnable = false
+        isOkButtonEnable = false,
+        dialogState = dialogState
     )
 }
 
-fun CreateBorrowingViewState.buildNotCreatedState(): CreateBorrowingViewState {
+fun CreateBorrowingViewState.buildNotCreatedState(dialogState: DialogState = DialogState.NotShowing): CreateBorrowingViewState {
     return this.copy(
         createStatus = CreateStatus.NotCreated,
         progressBar = false,
         isLayoutNameEnable = true,
         isLayoutDescriptionEnable = true,
-        isOkButtonEnable = true
+        isOkButtonEnable = true,
+        dialogState = dialogState
     )
 }
