@@ -42,10 +42,10 @@ class CreateBorrowingViewModel @ViewModelInject constructor() :
             val result = performBorrowingCreation()
             result.fold({
                 viewState = viewState.copy(createStatus = CreateStatus.Created)
-                viewEffect = CreateBorrowingViewEffect.ShowDialog("Borrowing created.")
+                viewEffect = CreateBorrowingViewEffect.ShowSuccessDialog
             }, {
                 viewState = viewState.copy(createStatus = CreateStatus.NotCreated)
-                viewEffect = CreateBorrowingViewEffect.ShowDialog("Failed to create borrowing.")
+                viewEffect = CreateBorrowingViewEffect.ShowFailureDialog
             })
         }
     }

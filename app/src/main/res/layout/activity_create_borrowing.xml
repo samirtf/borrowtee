@@ -19,7 +19,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutName"
-            setEnable="@{viewModel.event}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/form_create_name"
@@ -37,7 +36,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutDescription"
-            setEnable="@{viewModel.event}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/form_create_description"
@@ -59,16 +57,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            setEnable="@{viewModel.event}"
             android:text="@string/form_create_borrow_it"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{() -> viewModel.onCreateBorrowing(thing)}"/>
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
-            setLoading="@{viewModel.event}"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

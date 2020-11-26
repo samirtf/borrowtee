@@ -1,23 +1,29 @@
 package tf.samir.borrowtee.features.borrowing.view.create
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_create_borrowing.*
 import tf.samir.borrowtee.R
 import tf.samir.borrowtee.databinding.ActivityCreateBorrowingBinding
-import tf.samir.borrowtee.features.borrowing.presentation.presenter.create.CreateBorrowingViewModel
-import tf.samir.borrowtee.features.borrowing.presentation.presenter.create.ThingData
+import tf.samir.borrowtee.features.borrowing.presentation.presenter.create.*
+import tf.samir.borrowtee.features.main.view.all_things.AllThingsFragment
+import tf.samir.borrowtee.viewbase.alert
+import tf.samir.core.base.HyperActivity
 import timber.log.Timber
 
-class CreateBorrowingActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class CreateBorrowingActivity :
+    HyperActivity<CreateBorrowingViewState, CreateBorrowingViewEffect, CreateBorrowingViewEvent, CreateBorrowingViewModel>() {
 
     companion object {
         const val TAG = "CreateBorrowingA"
     }
 
-    private val viewModel by viewModels<CreateBorrowingViewModel>()
+    override val viewModel by viewModels<CreateBorrowingViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,23 +36,68 @@ class CreateBorrowingActivity : AppCompatActivity() {
         binding.thing = ThingData("trajano")
         // Specify the current activity as the lifecycle owner.
         binding.lifecycleOwner = this
-
-        viewModel.event.observe(this, Observer {
-            when (it) {
-                CreateBorrowingViewModel.State.Idle -> Timber.tag(TAG).i("Idle")
-                CreateBorrowingViewModel.State.CreateBorrowing -> Timber.tag(TAG).i("Loading")
-                CreateBorrowingViewModel.State.Success -> {
-                    Timber.tag(TAG).i("Success")
-                    viewModel.onActionComplete()
-                }
-                CreateBorrowingViewModel.State.Error -> {
-                    Timber.tag(TAG).i("Error")
-                    viewModel.onActionComplete()
-                }
-                else -> { }
-            }
-        })
     }
 
+    override fun renderViewState(viewState: CreateBorrowingViewState) {
+        when (viewState.createStatus) {
+            CreateStatus.Creating -> updateCreatingUiState()
+            CreateStatus.Created -> updateCreatedUiState()
+            CreateStatus.NotCreated -> updateNotCreatedUiState()
+        }
+    }
+
+    private fun updateCreatingUiState() {
+        progressBar.visibility = View.VISIBLE
+        layoutName.isEnabled = false
+        layoutDescription.isEnabled = false
+    }
+
+    private fun updateCreatedUiState() {
+        progressBar.visibility = View.INVISIBLE
+        layoutName.isEnabled = true
+        layoutDescription.isEnabled = false
+    }
+
+    private fun updateNotCreatedUiState() {
+        progressBar.visibility = View.INVISIBLE
+        layoutName.isEnabled = true
+        layoutDescription.isEnabled = true
+    }
+
+
+    override fun renderViewEffect(viewEffect: CreateBorrowingViewEffect) {
+        when (viewEffect) {
+            is CreateBorrowingViewEffect.ShowSuccessDialog -> {
+                Timber.tag(TAG).i("ShowToast")
+                showSuccessDialog()
+            }
+            CreateBorrowingViewEffect.NavigateBack -> {
+                Timber.tag(TAG).i("NavigateBack")
+                showFailureDialog()
+            }
+            is CreateBorrowingViewEffect.ShowFailureDialog -> {
+
+            }
+        }
+    }
+
+    private fun showSuccessDialog() {
+        alert("Borrowing created", "The borrowing was successfully created!") {
+            positiveButton("Ok") {
+                Timber.tag(TAG).i("NavigateBack")
+            }
+        }.show()
+    }
+
+    private fun showFailureDialog() {
+        alert("Failed to create borrowing", "Unable to create borrowing") {
+            positiveButton("Retry") {
+                Timber.tag(TAG).i("Retried.")
+            }
+            negativeButton("Cancel"){
+                Timber.tag(TAG).i("Cancelled.")
+            }
+        }.show()
+    }
 
 }

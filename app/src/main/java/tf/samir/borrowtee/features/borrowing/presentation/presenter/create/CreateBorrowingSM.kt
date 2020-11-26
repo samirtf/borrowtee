@@ -3,7 +3,8 @@ package tf.samir.borrowtee.features.borrowing.presentation.presenter.create
 data class CreateBorrowingViewState(val createStatus: CreateStatus)
 
 sealed class CreateBorrowingViewEffect {
-    data class ShowDialog(val message: String) : CreateBorrowingViewEffect()
+    object ShowSuccessDialog : CreateBorrowingViewEffect()
+    object ShowFailureDialog : CreateBorrowingViewEffect()
     object NavigateBack : CreateBorrowingViewEffect()
 }
 
