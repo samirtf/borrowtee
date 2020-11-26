@@ -38,14 +38,12 @@ class CreateBorrowingViewModel @ViewModelInject constructor() :
         Timber.tag(TAG).i("ThingData: ${thingData?.name ?: ""}")
 
         viewModelScope.launch {
-            delay(3000)
+            delay(1000)
             val result = performBorrowingCreation()
             result.fold({
-                viewState = viewState.buildCreatedState()
-                viewEffect = CreateBorrowingViewEffect.ShowSuccessDialog
+                viewState = viewState.buildCreatedState(DialogState.ShowingSuccess)
             }, {
-                viewState = viewState.buildNotCreatedState()
-                viewEffect = CreateBorrowingViewEffect.ShowFailureDialog
+                viewState = viewState.buildNotCreatedState(DialogState.ShowingFailure)
             })
         }
     }
