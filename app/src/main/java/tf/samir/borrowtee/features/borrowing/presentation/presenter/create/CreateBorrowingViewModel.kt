@@ -20,7 +20,7 @@ class CreateBorrowingViewModel @ViewModelInject constructor() :
     }
 
     init {
-        viewState = CreateBorrowingViewState(createStatus = CreateStatus.NotCreated)
+        viewState = CreateBorrowingViewState()
         Timber.tag(TAG).i("$TAG created!")
     }
 
@@ -33,7 +33,7 @@ class CreateBorrowingViewModel @ViewModelInject constructor() :
     }
 
     private fun createBorrowing(thingData: ThingData?) {
-        viewState = viewState.copy(createStatus = CreateStatus.Creating)
+        viewState = viewState.buildCreatingState()
         Timber.tag(TAG).i("Creating borrowing...")
         Timber.tag(TAG).i("ThingData: ${thingData?.name ?: ""}")
 
@@ -41,10 +41,10 @@ class CreateBorrowingViewModel @ViewModelInject constructor() :
             delay(3000)
             val result = performBorrowingCreation()
             result.fold({
-                viewState = viewState.copy(createStatus = CreateStatus.Created)
+                viewState = viewState.buildCreatedState()
                 viewEffect = CreateBorrowingViewEffect.ShowSuccessDialog
             }, {
-                viewState = viewState.copy(createStatus = CreateStatus.NotCreated)
+                viewState = viewState.buildNotCreatedState()
                 viewEffect = CreateBorrowingViewEffect.ShowFailureDialog
             })
         }
@@ -52,7 +52,7 @@ class CreateBorrowingViewModel @ViewModelInject constructor() :
 
     private fun performBorrowingCreation(): Result<Boolean> {
         return if (Random.nextBoolean().and(Random.nextBoolean())) {
-            Result.failure(throw Exception("Fail to create thing."))
+            Result.failure(Exception("Fail to create thing."))
         } else {
             Result.success(true)
         }
@@ -60,7 +60,7 @@ class CreateBorrowingViewModel @ViewModelInject constructor() :
 
     private fun cancelCreation() {
         viewModelScope.launch {
-            viewState = viewState.copy(createStatus = CreateStatus.NotCreated)
+            viewState = viewState.buildNotCreatedState()
             viewEffect = CreateBorrowingViewEffect.NavigateBack
         }
     }
@@ -69,7 +69,6 @@ class CreateBorrowingViewModel @ViewModelInject constructor() :
         super.onCleared()
         Timber.tag(TAG).i("$TAG destroyed!")
     }
-
 
 }
 

@@ -5,12 +5,15 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_create_borrowing.*
 import tf.samir.borrowtee.R
 import tf.samir.borrowtee.databinding.ActivityCreateBorrowingBinding
 import tf.samir.borrowtee.features.borrowing.presentation.presenter.create.*
 import tf.samir.borrowtee.features.main.view.all_things.AllThingsFragment
+import tf.samir.borrowtee.features.main.view.all_things.AllThingsFragmentDirections
 import tf.samir.borrowtee.viewbase.alert
 import tf.samir.core.base.HyperActivity
 import timber.log.Timber
@@ -34,6 +37,9 @@ class CreateBorrowingActivity :
             DataBindingUtil.setContentView(this, R.layout.activity_create_borrowing)
         binding.viewModel = viewModel
         binding.thing = ThingData("trajano")
+        binding.button.setOnClickListener {
+            binding.thing.let { viewModel.handle(CreateBorrowingViewEvent.CreateClicked(it)) }
+        }
         // Specify the current activity as the lifecycle owner.
         binding.lifecycleOwner = this
     }
@@ -47,36 +53,37 @@ class CreateBorrowingActivity :
     }
 
     private fun updateCreatingUiState() {
-        progressBar.visibility = View.VISIBLE
-        layoutName.isEnabled = false
-        layoutDescription.isEnabled = false
+//        progressBar.visibility = View.VISIBLE
+//        layoutName.isEnabled = false
+//        layoutDescription.isEnabled = false
     }
 
     private fun updateCreatedUiState() {
-        progressBar.visibility = View.INVISIBLE
-        layoutName.isEnabled = true
-        layoutDescription.isEnabled = false
+//        progressBar.visibility = View.INVISIBLE
+//        layoutName.isEnabled = true
+//        layoutDescription.isEnabled = false
     }
 
     private fun updateNotCreatedUiState() {
-        progressBar.visibility = View.INVISIBLE
-        layoutName.isEnabled = true
-        layoutDescription.isEnabled = true
+//        progressBar.visibility = View.INVISIBLE
+//        layoutName.isEnabled = true
+//        layoutDescription.isEnabled = true
     }
 
 
     override fun renderViewEffect(viewEffect: CreateBorrowingViewEffect) {
         when (viewEffect) {
             is CreateBorrowingViewEffect.ShowSuccessDialog -> {
-                Timber.tag(TAG).i("ShowToast")
+                Timber.tag(TAG).i("ShowSuccessDialog")
                 showSuccessDialog()
             }
             CreateBorrowingViewEffect.NavigateBack -> {
                 Timber.tag(TAG).i("NavigateBack")
-                showFailureDialog()
+                onBackPressed()
             }
             is CreateBorrowingViewEffect.ShowFailureDialog -> {
-
+                Timber.tag(TAG).i("ShowFailureDialog")
+                showFailureDialog()
             }
         }
     }
@@ -85,7 +92,9 @@ class CreateBorrowingActivity :
         alert("Borrowing created", "The borrowing was successfully created!") {
             positiveButton("Ok") {
                 Timber.tag(TAG).i("NavigateBack")
+                onBackPressed()
             }
+            cancelable = false
         }.show()
     }
 
@@ -96,7 +105,9 @@ class CreateBorrowingActivity :
             }
             negativeButton("Cancel"){
                 Timber.tag(TAG).i("Cancelled.")
+                onBackPressed()
             }
+            cancelable = false
         }.show()
     }
 
