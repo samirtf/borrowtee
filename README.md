@@ -1,2 +1,3 @@
 # borrowtee
-App to manage your borrows.
+App to manage your borrows..
+
