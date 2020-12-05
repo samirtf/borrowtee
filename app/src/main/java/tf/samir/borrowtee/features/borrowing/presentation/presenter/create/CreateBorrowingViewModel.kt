@@ -8,11 +8,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tf.samir.borrowtee.BR
 import tf.samir.core.base.HyperViewModel
+import tf.samir.domain.entities.ThingEntity
+import tf.samir.domain.usecases.CreateBorrowingUseCase
 import timber.log.Timber
 import kotlin.random.Random
 
 
-class CreateBorrowingViewModel @ViewModelInject constructor() :
+class CreateBorrowingViewModel @ViewModelInject constructor(private val createBorrowingUseCase: CreateBorrowingUseCase) :
     HyperViewModel<CreateBorrowingViewState, CreateBorrowingViewEffect, CreateBorrowingViewEvent>() {
 
     companion object {
@@ -39,7 +41,7 @@ class CreateBorrowingViewModel @ViewModelInject constructor() :
 
         viewModelScope.launch {
             delay(1000)
-            val result = performBorrowingCreation()
+            val result = performBorrowingCreation(thingData)
             result.fold({
                 viewState = viewState.buildCreatedState(DialogState.ShowingSuccess)
             }, {
@@ -48,12 +50,9 @@ class CreateBorrowingViewModel @ViewModelInject constructor() :
         }
     }
 
-    private fun performBorrowingCreation(): Result<Boolean> {
-        return if (Random.nextBoolean().and(Random.nextBoolean())) {
-            Result.failure(Exception("Fail to create thing."))
-        } else {
-            Result.success(true)
-        }
+    private suspend fun performBorrowingCreation(thingData: ThingData?): Result<Boolean> {
+        thingData?.let { return createBorrowingUseCase.invoke(it.toThingEntity()) }
+            ?: return Result.failure(Exception("Fail to create thing."))
     }
 
     private fun cancelCreation() {
@@ -80,4 +79,6 @@ data class ThingData(private var _name: String) : BaseObservable() {
         }
 }
 
-
+fun ThingData.toThingEntity(): ThingEntity {
+    return ThingEntity(name = this.name)
+}

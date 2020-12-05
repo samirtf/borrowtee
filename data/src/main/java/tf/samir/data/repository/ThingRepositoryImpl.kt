@@ -16,4 +16,10 @@ class ThingRepositoryImpl(
     @ExperimentalCoroutinesApi
     override val thingsAtHome: Flow<List<ThingEntity>> = localDataSource.getAllThingsBy(AT_HOME)
 
+    override suspend fun insertThing(thingEntity: ThingEntity) = localDataSource.insert(thingEntity)
+
+    override suspend fun updateThing(thingEntity: ThingEntity) = localDataSource.insert(thingEntity)
+
+    override suspend fun deleteAll() = localDataSource.deleteAll()
+
 }

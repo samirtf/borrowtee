@@ -25,8 +25,14 @@ interface ThingModelDao {
     @ExperimentalCoroutinesApi
     fun getAllThingsAtHomeDistinctUntilChanged() = getAllThingsBy(AT_HOME).distinctUntilChanged()
 
+    @ExperimentalCoroutinesApi
+    fun getAllThingsByBorrowStateDistinctUntilChanged(@ThingState state: Int) = getAllThingsBy(state).distinctUntilChanged()
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(thing: LocalThingModel)
+    suspend fun insert(vararg thing: LocalThingModel)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun update(vararg thing: LocalThingModel)
 
     @Query("DELETE FROM $tableNameThing")
     suspend fun deleteAll()
