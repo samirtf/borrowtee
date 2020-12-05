@@ -6,4 +6,7 @@ import tf.samir.domain.entities.ThingEntity
 interface ThingRepository {
     val allThings: Flow<List<ThingEntity>>
     val thingsAtHome: Flow<List<ThingEntity>>
+    suspend fun insertThing(thingEntity: ThingEntity)
+    suspend fun updateThing(thingEntity: ThingEntity)
+    suspend fun deleteAll()
 }
