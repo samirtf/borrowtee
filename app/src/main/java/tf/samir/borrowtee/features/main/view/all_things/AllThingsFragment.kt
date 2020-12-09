@@ -23,8 +23,8 @@ class AllThingsFragment :
         const val TAG = "AllThingsFragment"
     }
 
-    private var _binding: ViewDataBinding? = null
-    private val binding: ViewDataBinding
+    private var _binding: FragmentAllThingsBinding? = null
+    private val binding: FragmentAllThingsBinding
         get() = _binding!!
 
     override val viewModel: AllThingsViewModel by viewModels()
@@ -42,7 +42,7 @@ class AllThingsFragment :
         inflater: LayoutInflater,
         container: ViewGroup?,
         attachToRoot: Boolean = false
-    ): ViewDataBinding {
+    ): FragmentAllThingsBinding {
         return FragmentAllThingsBinding.inflate(inflater, container, attachToRoot)
             .also {
                 it.viewModel = viewModel
