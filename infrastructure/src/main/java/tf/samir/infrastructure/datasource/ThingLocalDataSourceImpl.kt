@@ -1,21 +1,28 @@
 package tf.samir.infrastructure.datasource
 
+import android.util.Log
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import tf.samir.data.datasource.ThingLocalDataSource
 import tf.samir.domain.entities.ThingEntity
+import tf.samir.infrastructure.dao.ThingModelDao
 import tf.samir.infrastructure.mapper.DbMapper
+import javax.inject.Inject
 
 
-class ThingLocalDataSourceImpl(
+class ThingLocalDataSourceImpl @Inject constructor(
     private val dbMapper: DbMapper,
-    private val thingModelDao: tf.samir.infrastructure.dao.ThingModelDao): ThingLocalDataSource {
+    private val thingModelDao: ThingModelDao): ThingLocalDataSource {
 
 
     @ExperimentalCoroutinesApi
     override fun getAllThings(): Flow<List<ThingEntity>> = thingModelDao
-        .getAllThingsDistinctUntilChanged().map { dbMapper.mapThingModelsToDomain(it) }
+        .getAllThingsDistinctUntilChanged().map {
+            val mapThingModelsToDomain = dbMapper.mapThingModelsToDomain(it)
+            Log.e("TLDSI", "$mapThingModelsToDomain")
+            mapThingModelsToDomain
+        }
 
     @ExperimentalCoroutinesApi
     override fun getAllThingsBy(state: Int): Flow<List<ThingEntity>> = thingModelDao

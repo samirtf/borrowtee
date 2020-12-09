@@ -4,8 +4,10 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import tf.samir.borrowtee.BR
 import tf.samir.core.base.HyperViewModel
 import tf.samir.domain.entities.ThingEntity
@@ -41,12 +43,18 @@ class CreateBorrowingViewModel @ViewModelInject constructor(private val createBo
 
         viewModelScope.launch {
             delay(1000)
-            val result = performBorrowingCreation(thingData)
-            result.fold({
-                viewState = viewState.buildCreatedState(DialogState.ShowingSuccess)
-            }, {
-                viewState = viewState.buildNotCreatedState(DialogState.ShowingFailure)
-            })
+            withContext(Dispatchers.IO) {
+                val result = performBorrowingCreation(thingData)
+                result.fold({
+                    withContext(Dispatchers.Main) {
+                        viewState = viewState.buildCreatedState(DialogState.ShowingSuccess)
+                    }
+                }, {
+                    withContext(Dispatchers.Main) {
+                        viewState = viewState.buildNotCreatedState(DialogState.ShowingFailure)
+                    }
+                })
+            }
         }
     }
 

@@ -1,7 +1,9 @@
 package tf.samir.domain.entities
 
+import java.util.*
+
 data class ThingEntity (
-    val id: String = "",
+    val id: String = UUID.randomUUID().toString(),
     val name: String,
     val description: String = "",
     @ThingState

@@ -1,11 +1,16 @@
 package tf.samir.borrowtee.features.main.presentation.presenter.all_things
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import tf.samir.borrowtee.features.main.utils.toRecyclerItem
 import tf.samir.borrowtee.viewbase.RecyclerItem
 import tf.samir.core.base.HyperViewModel
@@ -25,9 +30,9 @@ class AllThingsViewModel @ViewModelInject constructor(private val getThingsUseCa
         Timber.tag(TAG).i("$TAG created!")
     }
 
-    val things = liveData<List<RecyclerItem>> {
-        emit(viewState.allThings)
-    }
+    private val _things = MutableLiveData<List<RecyclerItem>>().apply { value = emptyList() }
+    val things: LiveData<List<RecyclerItem>>
+        get() = _things
 
     override fun handle(viewEvent: AllThingsViewEvent) {
         super.handle(viewEvent)
@@ -47,6 +52,7 @@ class AllThingsViewModel @ViewModelInject constructor(private val getThingsUseCa
             getThingsUseCase.invoke().fold({ flow ->
                 flow.map { thingList -> thingList.map { it.toRecyclerItem() } }.collect {
                     viewState = viewState.copy(fetchStatus = FetchStatus.Fetched, allThings = it)
+                    _things.value = it
                 }
             }, {
                 viewState = viewState.copy(fetchStatus = FetchStatus.Fetched)

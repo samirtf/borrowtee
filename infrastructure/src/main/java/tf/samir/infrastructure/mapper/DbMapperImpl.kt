@@ -2,8 +2,9 @@ package tf.samir.infrastructure.mapper
 
 import tf.samir.data.model.LocalThingModel
 import tf.samir.domain.entities.ThingEntity
+import javax.inject.Inject
 
-class DbMapperImpl: DbMapper {
+class DbMapperImpl @Inject constructor(): DbMapper {
 
     override fun mapDomainThingToDb(thingEntity: ThingEntity): LocalThingModel {
         return with(thingEntity) {
