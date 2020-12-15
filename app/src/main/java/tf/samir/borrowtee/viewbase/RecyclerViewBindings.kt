@@ -1,6 +1,5 @@
 package tf.samir.borrowtee.viewbase
 
-import RecyclerViewAdapter
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 

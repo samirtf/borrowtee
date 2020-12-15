@@ -5,7 +5,6 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import tf.samir.data.datasource.ThingLocalDataSource
-import tf.samir.data.repository.InMemoryThingRepositoryMock
 import tf.samir.data.repository.ThingRepositoryImpl
 import tf.samir.data.usecase.CreateBorrowingUseCaseImpl
 import tf.samir.data.usecase.GetThingsUseCaseImpl
