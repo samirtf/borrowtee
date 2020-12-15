@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import tf.samir.borrowtee.R
 import tf.samir.borrowtee.features.main.presentation.presenter.notifications.NotificationsViewModel
@@ -24,9 +23,8 @@ class NotificationsFragment : Fragment() {
                 ViewModelProvider(this).get(NotificationsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_notifications, container, false)
         val textView: TextView = root.findViewById(R.id.text_notifications)
-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        notificationsViewModel.text.observe(viewLifecycleOwner, { textView.text = it })
+
         return root
     }
 }

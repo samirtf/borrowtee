@@ -8,7 +8,6 @@ import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import tf.samir.infrastructure.BorrowteeDatabase
 import tf.samir.infrastructure.dao.ThingModelDao
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ActivityComponent::class)

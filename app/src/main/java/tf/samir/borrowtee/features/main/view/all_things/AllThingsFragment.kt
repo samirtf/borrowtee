@@ -1,17 +1,21 @@
 package tf.samir.borrowtee.features.main.view.all_things
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_all_things.*
 import tf.samir.borrowtee.databinding.FragmentAllThingsBinding
 import tf.samir.borrowtee.features.main.presentation.presenter.all_things.*
+import tf.samir.borrowtee.features.main.utils.ItemButton
+import tf.samir.borrowtee.features.main.utils.ItemClickListener
+import tf.samir.borrowtee.features.main.utils.ItemSwipeHelper
 import tf.samir.core.base.HyperFragment
 import timber.log.Timber
 
@@ -50,8 +54,72 @@ class AllThingsFragment :
                 it.fab.setOnClickListener {
                     viewModel.handle(AllThingsViewEvent.FabClicked)
                 }
+                object : ItemSwipeHelper(requireContext(), it.recyclerView, 200) {
+                    override fun instantiateItemButton(
+                        viewHolder: RecyclerView.ViewHolder,
+                        buffer: MutableList<ItemButton>
+                    ) {
+                        buffer.add(
+                            ItemButton(
+                                requireContext(),
+                                "Delete",
+                                30,
+                                0,
+                                Color.parseColor("#FF3C30"),
+                                object : ItemClickListener {
+                                    override fun onClick(position: Int) {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "DELETE ID$position",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                }
+                            )
+                        )
+                    }
+
+                }
             }
     }
+
+    /**
+     * fun onCreate() {
+     *
+     *  val swipe = object: ItemSwipeHelper(this, recycler_test, 200)
+     *  {
+     *      override fun instantiateItemButton(...) {
+     *          buffer.add(ItemButton(
+     *              this@MainActivity,
+     *              "Delete",
+     *              30,
+     *              0,
+     *              Color.parseColor("#FF3C30"),
+     *              object: ItemClickListener {
+     *                  override fun onClick(position: Int) {
+     *                      Toast.makeText(this, this@MainActivity, "DELETE ID"+position, Toast.LEGNTH_SHORT).show()
+     *                  }
+     *              }
+     *          ))
+     *
+     *          buffer.add(ItemButton(
+     *              this@MainActivity,
+     *              "Update",
+     *              30,
+     *              R.drawable.ic_edit.white_24dp,
+     *              Color.parseColor("#FF9502"),
+     *              object: ItemClickListener {
+     *                  override fun onClick(position: Int) {
+     *                      Toast.makeText(this, this@MainActivity, "DELETE ID"+position, Toast.LEGNTH_SHORT).show()
+     *                  }
+     *              }
+     *          ))
+     *      }
+     *
+     *  }
+     * }
+     */
 
     override fun renderViewState(viewState: AllThingsViewState) {
         when (viewState.fetchStatus) {

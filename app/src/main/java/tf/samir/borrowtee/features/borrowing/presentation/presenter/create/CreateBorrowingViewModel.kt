@@ -13,7 +13,6 @@ import tf.samir.core.base.HyperViewModel
 import tf.samir.domain.entities.ThingEntity
 import tf.samir.domain.usecases.CreateBorrowingUseCase
 import timber.log.Timber
-import kotlin.random.Random
 
 
 class CreateBorrowingViewModel @ViewModelInject constructor(private val createBorrowingUseCase: CreateBorrowingUseCase) :
