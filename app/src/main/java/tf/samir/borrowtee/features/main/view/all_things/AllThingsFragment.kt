@@ -11,11 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_all_things.*
+import tf.samir.borrowtee.R
 import tf.samir.borrowtee.databinding.FragmentAllThingsBinding
 import tf.samir.borrowtee.features.main.presentation.presenter.all_things.*
-import tf.samir.borrowtee.features.main.utils.ItemButton
-import tf.samir.borrowtee.features.main.utils.ItemClickListener
-import tf.samir.borrowtee.features.main.utils.ItemSwipeHelper
+import tf.samir.borrowtee.features.main.utils.*
 import tf.samir.core.base.HyperFragment
 import timber.log.Timber
 
@@ -57,15 +56,50 @@ class AllThingsFragment :
                 object : ItemSwipeHelper(requireContext(), it.recyclerView, 200) {
                     override fun instantiateItemButton(
                         viewHolder: RecyclerView.ViewHolder,
-                        buffer: MutableList<ItemButton>
+                        buffer: MutableList<ButtonItem>
                     ) {
+
                         buffer.add(
-                            ItemButton(
+                            TextAndIconButtonItem(
                                 requireContext(),
+                                "Edit",
+                                30,
+                                R.drawable.ic_baseline_create_24,
+                                Color.parseColor("#007FFF"),
+                                object : ItemClickListener {
+                                    override fun onClick(position: Int) {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "EDIT ID$position",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                }
+                            )
+                        )
+                        buffer.add(
+                            IconButtonItem(
+                                requireContext(),
+                                R.drawable.ic_baseline_create_24,
+                                Color.parseColor("#ff7400"),
+                                object : ItemClickListener {
+                                    override fun onClick(position: Int) {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "EDIT ID$position",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                }
+                            )
+                        )
+                        buffer.add(
+                            TextButtonItem(
                                 "Delete",
                                 30,
-                                0,
-                                Color.parseColor("#FF3C30"),
+                                Color.parseColor("#ff0000"),
                                 object : ItemClickListener {
                                     override fun onClick(position: Int) {
                                         Toast.makeText(
@@ -80,46 +114,10 @@ class AllThingsFragment :
                         )
                     }
 
+
                 }
             }
     }
-
-    /**
-     * fun onCreate() {
-     *
-     *  val swipe = object: ItemSwipeHelper(this, recycler_test, 200)
-     *  {
-     *      override fun instantiateItemButton(...) {
-     *          buffer.add(ItemButton(
-     *              this@MainActivity,
-     *              "Delete",
-     *              30,
-     *              0,
-     *              Color.parseColor("#FF3C30"),
-     *              object: ItemClickListener {
-     *                  override fun onClick(position: Int) {
-     *                      Toast.makeText(this, this@MainActivity, "DELETE ID"+position, Toast.LEGNTH_SHORT).show()
-     *                  }
-     *              }
-     *          ))
-     *
-     *          buffer.add(ItemButton(
-     *              this@MainActivity,
-     *              "Update",
-     *              30,
-     *              R.drawable.ic_edit.white_24dp,
-     *              Color.parseColor("#FF9502"),
-     *              object: ItemClickListener {
-     *                  override fun onClick(position: Int) {
-     *                      Toast.makeText(this, this@MainActivity, "DELETE ID"+position, Toast.LEGNTH_SHORT).show()
-     *                  }
-     *              }
-     *          ))
-     *      }
-     *
-     *  }
-     * }
-     */
 
     override fun renderViewState(viewState: AllThingsViewState) {
         when (viewState.fetchStatus) {

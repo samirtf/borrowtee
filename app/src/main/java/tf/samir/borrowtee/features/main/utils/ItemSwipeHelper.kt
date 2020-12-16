@@ -22,16 +22,16 @@ abstract class ItemSwipeHelper(
     private var buttonWidth: Int
 ) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-    private var buttonList : MutableList<ItemButton>? = null
+    private var buttonList : MutableList<ButtonItem>? = null
     private lateinit var gestureDetector: GestureDetector
     private var swipePosition = -1
     private var swipeThreshold = 0.5f
-    private val buttonBuffer: MutableMap<Int, MutableList<ItemButton>>
+    private val buttonBuffer: MutableMap<Int, MutableList<ButtonItem>>
     private lateinit var removerQueue: LinkedList<Int>
 
     abstract fun instantiateItemButton(
         viewHolder: RecyclerView.ViewHolder,
-        buffer: MutableList<ItemButton>
+        buffer: MutableList<ButtonItem>
     )
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
@@ -173,7 +173,7 @@ abstract class ItemSwipeHelper(
 
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             if (dX < 0) {
-                var buffer: MutableList<ItemButton> = ArrayList()
+                var buffer: MutableList<ButtonItem> = ArrayList()
                 if (!buttonBuffer.containsKey(position)) {
                     instantiateItemButton(viewHolder, buffer)
                     buttonBuffer[position] = buffer
@@ -190,7 +190,7 @@ abstract class ItemSwipeHelper(
     private fun drawButton(
         c: Canvas,
         itemView: View,
-        buffer: MutableList<ItemButton>,
+        buffer: MutableList<ButtonItem>,
         translationX: Float
     ) {
         var right = itemView.right.toFloat()
