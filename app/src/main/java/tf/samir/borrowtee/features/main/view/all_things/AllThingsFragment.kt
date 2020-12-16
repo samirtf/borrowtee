@@ -60,7 +60,7 @@ class AllThingsFragment :
                     ) {
 
                         buffer.add(
-                            ButtonItemImpl(
+                            TextAndIconButtonItem(
                                 requireContext(),
                                 "Edit",
                                 30,
@@ -79,10 +79,8 @@ class AllThingsFragment :
                             )
                         )
                         buffer.add(
-                            ButtonItemImpl(
+                            IconButtonItem(
                                 requireContext(),
-                                "Load",
-                                30,
                                 R.drawable.ic_baseline_create_24,
                                 Color.parseColor("#ff7400"),
                                 object : ItemClickListener {

@@ -5,8 +5,9 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
+import tf.samir.borrowtee.BuildConfig
 
-class ButtonItemImpl(
+class TextAndIconButtonItem(
     private val context: Context,
     private val text: String,
     private val textSize: Int,
@@ -16,6 +17,12 @@ class ButtonItemImpl(
 ): ButtonItem {
     private var position: Int = 0
     private var clickRegion: RectF? = null
+
+    init {
+        if (BuildConfig.DEBUG && imageResId <= 0) {
+            error("Assertion failed: image resource id must be greater then zero.")
+        }
+    }
 
     override fun onClick(x: Float, y: Float): Boolean {
         if(clickRegion != null && clickRegion!!.contains(x, y)) {
@@ -27,14 +34,14 @@ class ButtonItemImpl(
 
     override fun onDraw(canvas: Canvas, rectF: RectF) {
         val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = this@ButtonItemImpl.color
+            color = this@TextAndIconButtonItem.color
             setShadowLayer(0.6f, 0.0f, 5.0f, Color.argb(100, 128, 128, 128))
         }
         canvas.drawRect(rectF, bgPaint)
 
         val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.WHITE
-            textSize = this@ButtonItemImpl.textSize.toFloat()
+            textSize = this@TextAndIconButtonItem.textSize.toFloat()
         }
 
         val rect = Rect()
@@ -44,18 +51,17 @@ class ButtonItemImpl(
         textPaint.getTextBounds(text, 0, text.length, rect)
         val x: Float
         val y: Float
-        if (imageResId == 0) {
-            x = canvasWidth/2f - rect.width()/2f-rect.left.toFloat()
-            y = canvasHeight/2f + rect.height()/2f - rect.bottom.toFloat()
-            canvas.drawText(text, rectF.left + x, rectF.top + y, textPaint)
-        } else {
-            val drawable = ContextCompat.getDrawable(context, imageResId)
-            val bitmap = drawableToBitmap(drawable)
-            x = canvasWidth/2f - rect.width()/2f-rect.left.toFloat()
-            y = canvasHeight/2f + rect.height()/2f - rect.bottom.toFloat()
-            canvas.drawText(text, rectF.left + x, rectF.top + y+y/4, textPaint)
-            canvas.drawBitmap(bitmap, (rectF.left+rectF.right)/2 - (bitmap.width/2), (rectF.top+rectF.bottom)/2-(bitmap.height/2)-y/4, textPaint)
-        }
+        val drawable = ContextCompat.getDrawable(context, imageResId)
+        val bitmap = drawableToBitmap(drawable)
+        x = canvasWidth / 2f - rect.width() / 2f - rect.left.toFloat()
+        y = canvasHeight / 2f + rect.height() / 2f - rect.bottom.toFloat()
+        canvas.drawText(text, rectF.left + x, rectF.top + y + y / 4, textPaint)
+        canvas.drawBitmap(
+            bitmap,
+            (rectF.left + rectF.right) / 2 - (bitmap.width / 2),
+            (rectF.top + rectF.bottom) / 2 - (bitmap.height / 2) - y / 4,
+            textPaint
+        )
 
     }
 

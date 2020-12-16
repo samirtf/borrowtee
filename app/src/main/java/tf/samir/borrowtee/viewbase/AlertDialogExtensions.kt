@@ -57,19 +57,19 @@ class AlertDialogHelper(context: Context, title: CharSequence?, message: CharSeq
         .setView(dialogView)
 
     private val title: TextView by lazyFast {
-        dialogView.findViewById<TextView>(R.id.dialogInfoTitleTextView)
+        dialogView.findViewById(R.id.dialogInfoTitleTextView)
     }
 
     private val message: TextView by lazyFast {
-        dialogView.findViewById<TextView>(R.id.dialogInfoMessageTextView)
+        dialogView.findViewById(R.id.dialogInfoMessageTextView)
     }
 
     private val positiveButton: Button by lazyFast {
-        dialogView.findViewById<Button>(R.id.dialogInfoPositiveButton)
+        dialogView.findViewById(R.id.dialogInfoPositiveButton)
     }
 
     private val negativeButton: Button by lazyFast {
-        dialogView.findViewById<Button>(R.id.dialogInfoNegativeButton)
+        dialogView.findViewById(R.id.dialogInfoNegativeButton)
     }
 
     private var dialog: AlertDialog? = null
