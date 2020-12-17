@@ -10,6 +10,7 @@ import tf.samir.borrowtee.databinding.ActivityCreateBorrowingBinding
 import tf.samir.borrowtee.features.borrowing.presentation.presenter.create.*
 import tf.samir.borrowtee.viewbase.alert
 import tf.samir.core.base.HyperActivity
+import tf.samir.infrastructure.datasource.failures.UniqueConstraintException
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -32,7 +33,7 @@ class CreateBorrowingActivity :
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_borrowing)
         binding?.let { binding ->
             binding.viewModel = viewModel
-            binding.thing = ThingData("trajano")
+            binding.thing = ThingData("trajano", "description")
             binding.button.setOnClickListener {
                 binding.thing.let { viewModel.handle(CreateBorrowingViewEvent.CreateClicked(it)) }
             }
@@ -51,7 +52,7 @@ class CreateBorrowingActivity :
         when (viewState.dialogState) {
             DialogState.NotShowing -> Timber.tag(TAG).d("Not showing dialog")
             DialogState.ShowingSuccess -> showSuccessDialog()
-            DialogState.ShowingFailure -> showFailureDialog()
+            is DialogState.ShowingFailure -> showFailureDialog(viewState.dialogState.exception)
         }
     }
 
@@ -64,14 +65,21 @@ class CreateBorrowingActivity :
         dialog?.show()
     }
 
-    private fun showFailureDialog() {
+    private fun showFailureDialog(ex: Throwable) {
         dialog = null
-        dialog = alert("Failed to create borrowing", "Unable to create borrowing") {
+        dialog = alert("Failed to create borrowing", handleThrowableMessage(ex)) {
             positiveButton("Retry") { retryToCreateBorrowing() }
             negativeButton("Cancel") { navigateBack() }
             cancelable = false
         }
         dialog?.show()
+    }
+
+    private fun handleThrowableMessage(ex: Throwable): String {
+        return when (ex) {
+            is UniqueConstraintException -> getString(R.string.error_item_already_registered)
+            else -> getString(R.string.error_unknown)
+        }
     }
 
     private fun retryToCreateBorrowing() {

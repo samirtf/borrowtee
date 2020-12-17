@@ -28,7 +28,7 @@ interface ThingModelDao {
     @ExperimentalCoroutinesApi
     fun getAllThingsByBorrowStateDistinctUntilChanged(@ThingState state: Int) = getAllThingsBy(state).distinctUntilChanged()
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(vararg thing: LocalThingModel)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)

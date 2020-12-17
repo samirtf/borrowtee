@@ -1,5 +1,7 @@
 package tf.samir.borrowtee.features.borrowing.presentation.presenter.create
 
+import java.lang.Exception
+
 data class CreateBorrowingViewState(
     val createStatus: CreateStatus = CreateStatus.NotCreated,
     val progressBar: Boolean = false,
@@ -12,7 +14,7 @@ data class CreateBorrowingViewState(
 sealed class DialogState{
     object NotShowing : DialogState()
     object ShowingSuccess : DialogState()
-    object ShowingFailure : DialogState()
+    data class ShowingFailure(val exception: Throwable) : DialogState()
 }
 
 sealed class CreateBorrowingViewEffect {
