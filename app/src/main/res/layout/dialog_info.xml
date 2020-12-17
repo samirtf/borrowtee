@@ -14,25 +14,26 @@
         android:id="@+id/dialogInfoTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/title_grey"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/dialogInfoMessageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/dialogInfoTitleTextView"
-        app:layout_constraintEnd_toEndOf="@+id/dialogInfoTitleTextView"
-        app:layout_constraintStart_toStartOf="@+id/dialogInfoTitleTextView"/>
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/dialogInfoTitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/dialogInfoTitleTextView" />
+
     <Button
+        android:id="@+id/dialogInfoPositiveButton"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:id="@+id/dialogInfoPositiveButton"
-        app:layout_constraintTop_toBottomOf="@+id/dialogInfoMessageTextView" android:layout_marginTop="64dp"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialogInfoMessageTextView" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

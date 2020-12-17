@@ -38,7 +38,6 @@ class IconButtonItem(
             (rectF.top + rectF.bottom) / 2 - (bitmap.height / 2),
             bgPaint
         )
-
     }
 
     private fun drawableToBitmap(drawable: Drawable?): Bitmap {

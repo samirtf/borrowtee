@@ -9,9 +9,9 @@ class CreateBorrowingUseCaseImpl @Inject constructor(private val thingRepository
     CreateBorrowingUseCase {
 
     override suspend operator fun invoke(param: ThingEntity): Result<Boolean> =
-        kotlin.runCatching {
+        runCatching {
             thingRepository.insertThing(param)
             return Result.success(true)
-        }
+        }.onFailure { return Result.failure(it) }
 
 }

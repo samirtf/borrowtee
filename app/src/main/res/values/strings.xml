@@ -7,4 +7,6 @@
     <string name="form_create_name">Name</string>
     <string name="form_create_description">Descrição do item.</string>
     <string name="form_create_borrow_it">Borrow it</string>
+    <string name="error_item_already_registered">Item already registered.</string>
+    <string name="error_unknown">Something went wrong.</string>
 </resources>
