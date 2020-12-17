@@ -15,6 +15,7 @@ import tf.samir.borrowtee.R
 import tf.samir.borrowtee.databinding.FragmentAllThingsBinding
 import tf.samir.borrowtee.features.main.presentation.presenter.all_things.*
 import tf.samir.borrowtee.features.main.utils.*
+import tf.samir.borrowtee.viewbase.alert
 import tf.samir.core.base.HyperFragment
 import timber.log.Timber
 
@@ -74,7 +75,6 @@ class AllThingsFragment :
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
-
                                 }
                             )
                         )
@@ -91,7 +91,6 @@ class AllThingsFragment :
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
-
                                 }
                             )
                         )
@@ -102,6 +101,7 @@ class AllThingsFragment :
                                 Color.parseColor("#ff0000"),
                                 object : ItemClickListener {
                                     override fun onClick(position: Int) {
+                                        Timber.tag("STF").e("TOAST")
                                         Toast.makeText(
                                             requireContext(),
                                             "DELETE ID$position",

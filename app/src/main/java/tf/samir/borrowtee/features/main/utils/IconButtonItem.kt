@@ -23,7 +23,7 @@ class IconButtonItem(
         return false
     }
 
-    override fun onDraw(canvas: Canvas, rectF: RectF) {
+    override fun onDraw(canvas: Canvas, rectF: RectF, position: Int) {
         val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = this@IconButtonItem.color
             setShadowLayer(0.6f, 0.0f, 5.0f, Color.argb(100, 128, 128, 128))
@@ -38,6 +38,9 @@ class IconButtonItem(
             (rectF.top + rectF.bottom) / 2 - (bitmap.height / 2),
             bgPaint
         )
+
+        clickRegion = rectF
+        this.position = position
     }
 
     private fun drawableToBitmap(drawable: Drawable?): Bitmap {

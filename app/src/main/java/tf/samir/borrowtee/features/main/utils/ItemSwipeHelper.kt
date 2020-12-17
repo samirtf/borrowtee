@@ -181,7 +181,7 @@ abstract class ItemSwipeHelper(
                     buffer = buttonBuffer[position]!!
                 }
                 translationX = dX*buffer.size.toFloat() * buttonWidth.toFloat() / itemView.width
-                drawButton(c, itemView, buffer, translationX)
+                drawButton(c, itemView, buffer, position, translationX)
             }
         }
         super.onChildDraw(c, recyclerView, viewHolder, translationX, dY, actionState, isCurrentlyActive)
@@ -191,13 +191,14 @@ abstract class ItemSwipeHelper(
         c: Canvas,
         itemView: View,
         buffer: MutableList<ButtonItem>,
+        position: Int,
         translationX: Float
     ) {
         var right = itemView.right.toFloat()
         val dButtonWidth = -1 * translationX/buffer.size
         for (button in buffer) {
             val left = right - dButtonWidth
-            button.onDraw(c, RectF(left, itemView.top.toFloat(), right, itemView.bottom.toFloat()))
+            button.onDraw(c, RectF(left, itemView.top.toFloat(), right, itemView.bottom.toFloat()), position)
             right = left
 
         }
