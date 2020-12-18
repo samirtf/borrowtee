@@ -1,6 +1,5 @@
 package tf.samir.data.repository
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import tf.samir.data.datasource.ThingLocalDataSource
 import tf.samir.domain.entities.AT_HOME
@@ -20,5 +19,7 @@ class ThingRepositoryImpl @Inject constructor(
     override suspend fun updateThing(thingEntity: ThingEntity) = localDataSource.insert(thingEntity)
 
     override suspend fun deleteAll() = localDataSource.deleteAll()
+
+    override fun deleteThing(thingId: String) = localDataSource.delete(thingId)
 
 }

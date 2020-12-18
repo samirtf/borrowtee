@@ -57,4 +57,6 @@ class ThingLocalDataSourceImpl @Inject constructor(
 
     override suspend fun deleteAll() = thingModelDao.deleteAll()
 
+    override fun delete(thingId: String) = thingModelDao.delete(thingId)
+
 }

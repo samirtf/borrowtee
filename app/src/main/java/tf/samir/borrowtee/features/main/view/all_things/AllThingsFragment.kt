@@ -15,7 +15,6 @@ import tf.samir.borrowtee.R
 import tf.samir.borrowtee.databinding.FragmentAllThingsBinding
 import tf.samir.borrowtee.features.main.presentation.presenter.all_things.*
 import tf.samir.borrowtee.features.main.utils.*
-import tf.samir.borrowtee.viewbase.alert
 import tf.samir.core.base.HyperFragment
 import timber.log.Timber
 
@@ -59,65 +58,62 @@ class AllThingsFragment :
                         viewHolder: RecyclerView.ViewHolder,
                         buffer: MutableList<ButtonItem>
                     ) {
-
-                        buffer.add(
-                            TextAndIconButtonItem(
-                                requireContext(),
-                                "Edit",
-                                30,
-                                R.drawable.ic_baseline_create_24,
-                                Color.parseColor("#007FFF"),
-                                object : ItemClickListener {
-                                    override fun onClick(position: Int) {
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "EDIT ID$position",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
-                            )
-                        )
-                        buffer.add(
-                            IconButtonItem(
-                                requireContext(),
-                                R.drawable.ic_baseline_create_24,
-                                Color.parseColor("#ff7400"),
-                                object : ItemClickListener {
-                                    override fun onClick(position: Int) {
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "EDIT ID$position",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                }
-                            )
-                        )
-                        buffer.add(
-                            TextButtonItem(
-                                "Delete",
-                                30,
-                                Color.parseColor("#ff0000"),
-                                object : ItemClickListener {
-                                    override fun onClick(position: Int) {
-                                        Timber.tag("STF").e("TOAST")
-                                        Toast.makeText(
-                                            requireContext(),
-                                            "DELETE ID$position",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-
-                                }
-                            )
-                        )
+                        buffer.add(createTextAndIconButtonItem())
+                        buffer.add(createIconButtonItem())
+                        buffer.add(createTextButtonItem())
                     }
-
-
                 }
             }
     }
+
+    private fun createTextButtonItem() = TextButtonItem(
+        "Delete",
+        30,
+        Color.parseColor("#ff0000"),
+        object : ItemClickListener {
+            override fun onClick(position: Int) {
+                Timber.tag("STF").e("TOAST")
+                deleteThingItem(position)
+                Toast.makeText(
+                    requireContext(),
+                    "DELETE ID$position",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    )
+
+    private fun createIconButtonItem() = IconButtonItem(
+        requireContext(),
+        R.drawable.ic_baseline_create_24,
+        Color.parseColor("#ff7400"),
+        object : ItemClickListener {
+            override fun onClick(position: Int) {
+                Toast.makeText(
+                    requireContext(),
+                    "EDIT ID$position",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    )
+
+    private fun createTextAndIconButtonItem() = TextAndIconButtonItem(
+        requireContext(),
+        "Edit",
+        30,
+        R.drawable.ic_baseline_create_24,
+        Color.parseColor("#007FFF"),
+        object : ItemClickListener {
+            override fun onClick(position: Int) {
+                Toast.makeText(
+                    requireContext(),
+                    "EDIT ID$position",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    )
 
     override fun renderViewState(viewState: AllThingsViewState) {
         when (viewState.fetchStatus) {
@@ -153,6 +149,10 @@ class AllThingsFragment :
             AllThingsFragmentDirections
                 .actionNavigationHomeToCreateBorrowingActivity()
         )
+    }
+
+    private fun deleteThingItem(id: Int) {
+        viewModel.handle(AllThingsViewEvent.DeleteThingClicked(id))
     }
 
     override fun onDestroyView() {
