@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import tf.samir.borrowtee.R
 import tf.samir.borrowtee.databinding.FragmentAllThingsBinding
 import tf.samir.borrowtee.features.main.presentation.presenter.all_things.*
 import tf.samir.borrowtee.features.main.utils.*
+import tf.samir.borrowtee.viewbase.alert
 import tf.samir.core.base.HyperFragment
 import timber.log.Timber
 
@@ -31,6 +33,9 @@ class AllThingsFragment :
         get() = _binding!!
 
     override val viewModel: AllThingsViewModel by viewModels()
+
+    private var dialog: AlertDialog? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,12 +78,7 @@ class AllThingsFragment :
         object : ItemClickListener {
             override fun onClick(position: Int) {
                 Timber.tag("STF").e("TOAST")
-                deleteThingItem(position)
-                Toast.makeText(
-                    requireContext(),
-                    "DELETE ID$position",
-                    Toast.LENGTH_SHORT
-                ).show()
+                showDeletionConfirmationDialog(position)
             }
         }
     )
@@ -155,8 +155,20 @@ class AllThingsFragment :
         viewModel.handle(AllThingsViewEvent.DeleteThingClicked(id))
     }
 
+    private fun showDeletionConfirmationDialog(thingPosition: Int) {
+        dialog = null
+        dialog = alert("Deleting confirmation!", "Are you sure you want to delete this entry?" ) {
+            positiveButton("Delete") { deleteThingItem(thingPosition) }
+            negativeButton("Cancel") { Timber.tag(TAG).d("Cancelling deletion.") }
+            cancelable = false
+        }
+        dialog?.show()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        dialog?.dismiss()
+        dialog = null
     }
 }

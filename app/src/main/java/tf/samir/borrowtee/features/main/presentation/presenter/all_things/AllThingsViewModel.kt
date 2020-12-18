@@ -72,22 +72,23 @@ class AllThingsViewModel @ViewModelInject constructor(
     private fun deleteThingItem(id: Int) {
         things.value?.run {
             val item = get(id)
-            viewState = viewState.copy(fetchStatus = FetchStatus.Fetching)
             viewModelScope.launch {
+                viewState = viewState.copy(fetchStatus = FetchStatus.Fetching)
                 withContext(Dispatchers.IO) {
                     deleteBorrowingUseCase.invoke(item.data.id).fold({
                         Timber.tag(TAG).d("$it")
-//                        withContext(Dispatchers.Main) {
-//                            fetchAllThings()
-//                        }
+                        withContext(Dispatchers.Main) {
+                            viewState = viewState.copy(fetchStatus = FetchStatus.Fetched)
+                            viewEffect = AllThingsViewEffect.ShowToast(message = "Success to delete thing.")
+                        }
                     }, {
                         Timber.tag(TAG).d("$it")
-//                        withContext(Dispatchers.Main) {
-//                            fetchAllThings()
-//                        }
+                        withContext(Dispatchers.Main) {
+                            viewState = viewState.copy(fetchStatus = FetchStatus.Fetched)
+                            viewEffect = AllThingsViewEffect.ShowToast(message = "Failed to delete thing.")
+                        }
                     })
                 }
-
             }
         }
     }
