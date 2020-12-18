@@ -19,7 +19,7 @@ class TextButtonItem(
         return false
     }
 
-    override fun onDraw(canvas: Canvas, rectF: RectF) {
+    override fun onDraw(canvas: Canvas, rectF: RectF, position: Int) {
         val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = this@TextButtonItem.color
             setShadowLayer(0.6f, 0.0f, 5.0f, Color.argb(100, 128, 128, 128))
@@ -42,5 +42,8 @@ class TextButtonItem(
         x = canvasWidth/2f - rect.width()/2f-rect.left.toFloat()
         y = canvasHeight/2f + rect.height()/2f - rect.bottom.toFloat()
         canvas.drawText(text, rectF.left + x, rectF.top + y, textPaint)
+
+        clickRegion = rectF
+        this.position = position
     }
 }

@@ -12,4 +12,5 @@ interface ThingLocalDataSource {
     suspend fun insert(thing: ThingEntity)
     suspend fun update(thing: ThingEntity)
     suspend fun deleteAll()
+    fun delete(thingId: String)
 }

@@ -44,7 +44,7 @@ class CreateBorrowingViewModel @ViewModelInject constructor(private val createBo
         Timber.tag(TAG).i("ThingData: ${thingData?.name ?: ""}")
 
         viewModelScope.launch {
-            delay(1000)
+            delay(300)
             withContext(Dispatchers.IO) {
                 val result = performBorrowingCreation(thingData)
                 result.fold({

@@ -89,6 +89,11 @@ class InMemoryThingRepositoryMock @Inject constructor(): ThingRepository {
     }
 
     override suspend fun deleteAll() = things.clear()
+
+    override fun deleteThing(thingId: String) {
+        val find = things.find { thingEntity -> thingEntity.id == thingId }
+        find?.run { things.remove(find) }
+    }
 }
 
 

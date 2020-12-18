@@ -37,4 +37,7 @@ interface ThingModelDao {
     @Query("DELETE FROM $tableNameThing")
     suspend fun deleteAll()
 
+    @Query("DELETE FROM $tableNameThing WHERE id = :id")
+    fun delete(id: String)
+
 }

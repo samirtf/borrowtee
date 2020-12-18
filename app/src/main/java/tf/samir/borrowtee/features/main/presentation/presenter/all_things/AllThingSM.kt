@@ -12,6 +12,7 @@ sealed class AllThingsViewEffect {
 sealed class AllThingsViewEvent {
     object FabClicked : AllThingsViewEvent()
     object FetchAllThings : AllThingsViewEvent()
+    data class DeleteThingClicked(val position: Int) : AllThingsViewEvent()
 }
 
 sealed class FetchStatus {

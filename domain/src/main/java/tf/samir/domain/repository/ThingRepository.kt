@@ -9,4 +9,5 @@ interface ThingRepository {
     suspend fun insertThing(thingEntity: ThingEntity)
     suspend fun updateThing(thingEntity: ThingEntity)
     suspend fun deleteAll()
+    fun deleteThing(thingId: String)
 }

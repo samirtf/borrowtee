@@ -33,7 +33,7 @@ class CreateBorrowingActivity :
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_borrowing)
         binding?.let { binding ->
             binding.viewModel = viewModel
-            binding.thing = ThingData("trajano", "description")
+            binding.thing = ThingData("", "")
             binding.button.setOnClickListener {
                 binding.thing.let { viewModel.handle(CreateBorrowingViewEvent.CreateClicked(it)) }
             }

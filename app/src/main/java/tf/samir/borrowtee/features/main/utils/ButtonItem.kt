@@ -6,5 +6,5 @@ import android.graphics.RectF
 interface ButtonItem {
 
     fun onClick(x: Float, y: Float): Boolean
-    fun onDraw(canvas: Canvas, rectF: RectF)
+    fun onDraw(canvas: Canvas, rectF: RectF, position: Int)
 }
