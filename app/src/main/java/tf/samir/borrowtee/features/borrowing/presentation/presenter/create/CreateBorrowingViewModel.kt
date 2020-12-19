@@ -46,17 +46,24 @@ class CreateBorrowingViewModel @ViewModelInject constructor(private val createBo
         viewModelScope.launch {
             delay(300)
             withContext(Dispatchers.IO) {
-                val result = performBorrowingCreation(thingData)
-                result.fold({
-                    withContext(Dispatchers.Main) {
-                        viewState = viewState.buildCreatedState(DialogState.ShowingSuccess)
-                    }
+                performBorrowingCreation(thingData).fold({
+                    handleCreateBorrowingSuccess()
                 }, {
-                    withContext(Dispatchers.Main) {
-                        viewState = viewState.buildNotCreatedState(DialogState.ShowingFailure(it))
-                    }
+                    handleCreateBorrowingFailure(it)
                 })
             }
+        }
+    }
+
+    private suspend fun handleCreateBorrowingFailure(it: Throwable) {
+        withContext(Dispatchers.Main) {
+            viewState = viewState.buildNotCreatedState(DialogState.ShowingFailure(it))
+        }
+    }
+
+    private suspend fun handleCreateBorrowingSuccess() {
+        withContext(Dispatchers.Main) {
+            viewState = viewState.buildCreatedState(DialogState.ShowingSuccess)
         }
     }
 

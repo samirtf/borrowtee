@@ -132,13 +132,21 @@ class AllThingsFragment :
 
     override fun renderViewEffect(viewEffect: AllThingsViewEffect) {
         when (viewEffect) {
-            is AllThingsViewEffect.ShowToast -> {
-                Timber.tag(TAG).i("ShowToast")
-                Toast.makeText(context, viewEffect.message, Toast.LENGTH_SHORT).show()
-            }
             AllThingsViewEffect.NavigateToCreateBorrowingPage -> {
                 Timber.tag(TAG).i("NavigateToCreateBorrowing")
                 navigateToCreateBorrowing()
+            }
+            AllThingsViewEffect.ShowFetchThingsSuccess -> {
+                Toast.makeText(context, getString(R.string.fetch_things_success), Toast.LENGTH_SHORT).show()
+            }
+            is AllThingsViewEffect.ShowFetchThingsFailure -> {
+                Toast.makeText(context, getString(R.string.fetch_things_failure), Toast.LENGTH_SHORT).show()
+            }
+            AllThingsViewEffect.ShowDeleteThingSuccess -> {
+                Toast.makeText(context, getString(R.string.delete_thing_success), Toast.LENGTH_SHORT).show()
+            }
+            is AllThingsViewEffect.ShowDeleteThingFailure -> {
+                Toast.makeText(context, getString(R.string.delete_thing_failure), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -157,9 +165,9 @@ class AllThingsFragment :
 
     private fun showDeletionConfirmationDialog(thingPosition: Int) {
         dialog = null
-        dialog = alert("Deleting confirmation!", "Are you sure you want to delete this entry?" ) {
-            positiveButton("Delete") { deleteThingItem(thingPosition) }
-            negativeButton("Cancel") { Timber.tag(TAG).d("Cancelling deletion.") }
+        dialog = alert(getString(R.string.delete_confirmation_dialog_title), getString(R.string.delete_confirmation_dialog_message) ) {
+            positiveButton(getString(R.string.button_delete)) { deleteThingItem(thingPosition) }
+            negativeButton(getString(R.string.button_cancel)) { Timber.tag(TAG).d("Cancelling deletion.") }
             cancelable = false
         }
         dialog?.show()

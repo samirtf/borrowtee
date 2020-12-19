@@ -5,7 +5,10 @@ import tf.samir.borrowtee.viewbase.RecyclerItem
 data class AllThingsViewState(val fetchStatus: FetchStatus, val allThings: List<RecyclerItem>)
 
 sealed class AllThingsViewEffect {
-    data class ShowToast(val message: String) : AllThingsViewEffect()
+    object ShowFetchThingsSuccess : AllThingsViewEffect()
+    data class ShowFetchThingsFailure(val failure: Throwable) : AllThingsViewEffect()
+    object ShowDeleteThingSuccess : AllThingsViewEffect()
+    data class ShowDeleteThingFailure(val failure: Throwable) : AllThingsViewEffect()
     object NavigateToCreateBorrowingPage : AllThingsViewEffect()
 }
 
