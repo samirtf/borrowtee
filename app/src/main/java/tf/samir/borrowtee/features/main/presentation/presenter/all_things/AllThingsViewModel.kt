@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -12,6 +13,7 @@ import kotlinx.coroutines.withContext
 import tf.samir.borrowtee.features.main.utils.toRecyclerItem
 import tf.samir.borrowtee.viewbase.RecyclerItem
 import tf.samir.core.base.HyperViewModel
+import tf.samir.domain.entities.ThingEntity
 import tf.samir.domain.usecases.DeleteBorrowingUseCase
 import tf.samir.domain.usecases.GetThingsUseCase
 import timber.log.Timber
@@ -53,20 +55,30 @@ class AllThingsViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 getThingsUseCase.invoke().fold({ flow ->
-                    flow.map { thingList -> thingList.map { it.toRecyclerItem() } }.collect {
-                        withContext(Dispatchers.Main) {
-                            viewState = viewState.copy(fetchStatus = FetchStatus.Fetched, allThings = it)
-                            _things.value = it
-                        }
-                    }
+                    handleFetchThingsSuccess(flow)
                 }, {
-                    withContext(Dispatchers.Main) {
-                        viewState = viewState.copy(fetchStatus = FetchStatus.Fetched)
-                        viewEffect = AllThingsViewEffect.ShowToast(message = "Failed to fetch things.")
-                    }
+                    handleFetchThingsFailure(it)
                 })
             }
         }
+    }
+
+    private suspend fun handleFetchThingsSuccess(flow: Flow<List<ThingEntity>>) {
+        flow.map { thingList -> thingList.map { it.toRecyclerItem() } }.collect {
+            withContext(Dispatchers.Main) {
+                viewState = viewState.copy(fetchStatus = FetchStatus.Fetched, allThings = it)
+                _things.value = it
+            }
+            Timber.tag(TAG).d("handleFetchThingsSuccess")
+        }
+    }
+
+    private suspend fun handleFetchThingsFailure(failure: Throwable) {
+        withContext(Dispatchers.Main) {
+            viewState = viewState.copy(fetchStatus = FetchStatus.Fetched)
+            viewEffect = AllThingsViewEffect.ShowFetchThingsFailure(failure)
+        }
+        Timber.tag(TAG).d("handleFetchThingsFailure")
     }
 
     private fun deleteThingItem(id: Int) {
@@ -76,21 +88,29 @@ class AllThingsViewModel @ViewModelInject constructor(
                 viewState = viewState.copy(fetchStatus = FetchStatus.Fetching)
                 withContext(Dispatchers.IO) {
                     deleteBorrowingUseCase.invoke(item.data.id).fold({
-                        Timber.tag(TAG).d("$it")
-                        withContext(Dispatchers.Main) {
-                            viewState = viewState.copy(fetchStatus = FetchStatus.Fetched)
-                            viewEffect = AllThingsViewEffect.ShowToast(message = "Success to delete thing.")
-                        }
+                        handleDeleteThingSuccess(it)
                     }, {
-                        Timber.tag(TAG).d("$it")
-                        withContext(Dispatchers.Main) {
-                            viewState = viewState.copy(fetchStatus = FetchStatus.Fetched)
-                            viewEffect = AllThingsViewEffect.ShowToast(message = "Failed to delete thing.")
-                        }
+                        handleDeleteThingFailure(it)
                     })
                 }
             }
         }
+    }
+
+    private suspend fun handleDeleteThingFailure(failure: Throwable) {
+        withContext(Dispatchers.Main) {
+            viewState = viewState.copy(fetchStatus = FetchStatus.Fetched)
+            viewEffect = AllThingsViewEffect.ShowDeleteThingFailure(failure)
+        }
+        Timber.tag(TAG).d("handleDeleteThingFailure")
+    }
+
+    private suspend fun handleDeleteThingSuccess(it: Boolean) {
+        withContext(Dispatchers.Main) {
+            viewState = viewState.copy(fetchStatus = FetchStatus.Fetched)
+            viewEffect = AllThingsViewEffect.ShowDeleteThingSuccess
+        }
+        Timber.tag(TAG).d("$it")
     }
 
     override fun onCleared() {

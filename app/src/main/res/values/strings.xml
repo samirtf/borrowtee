@@ -9,4 +9,12 @@
     <string name="form_create_borrow_it">Borrow it</string>
     <string name="error_item_already_registered">Item already registered.</string>
     <string name="error_unknown">Something went wrong.</string>
+    <string name="fetch_things_success">Items have been updated.</string>
+    <string name="fetch_things_failure">Failed to fetch things.</string>
+    <string name="delete_thing_failure">Failed to delete thing.</string>
+    <string name="delete_thing_success">Thing was successfully removed.</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="delete_confirmation_dialog_title">Deleting confirmation!</string>
+    <string name="delete_confirmation_dialog_message">Are you sure you want to delete this entry?</string>
 </resources>
