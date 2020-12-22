@@ -2,9 +2,8 @@ package tf.samir.borrowtee.features.main.view.all_things
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
@@ -36,6 +35,10 @@ class AllThingsFragment :
 
     private var dialog: AlertDialog? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -114,6 +117,19 @@ class AllThingsFragment :
             }
         }
     )
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.all_things_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // handle menu item clicks
+        when (item.itemId) {
+            R.id.filter -> {Timber.tag(TAG).d("Filter Clicked!")}
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun renderViewState(viewState: AllThingsViewState) {
         when (viewState.fetchStatus) {

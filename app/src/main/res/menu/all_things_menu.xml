@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/filter"
+        android:icon="@drawable/ic_round_filter_list_24_white"
+        android:title="@string/menu_item_filter"
+        app:showAsAction="ifRoom">
+        <!-- "filter submenu" -->
+        <menu>
+            <item android:id="@+id/filterAll"
+                android:icon="@drawable/ic_round_border_filter_all_things_24"
+                android:title="@string/menu_item_filter_all_things"
+                app:showAsAction="ifRoom" />
+            <item android:id="@+id/filterBorrowed"
+                android:icon="@drawable/ic_round_border_filter_borrowed_24"
+                android:title="@string/menu_item_filter_borrowed"
+                app:showAsAction="ifRoom" />
+            <item android:id="@+id/filterAtHome"
+                android:icon="@drawable/ic_round_border_filter_at_home_24"
+                android:title="@string/menu_item_filter_at_home"
+                app:showAsAction="ifRoom" />
+        </menu>
+    </item>
+
+    <item android:id="@+id/sort"
+        android:icon="@drawable/ic_round_sort_24_white"
+        android:title="@string/menu_item_filter"
+        app:showAsAction="ifRoom">
+        <!-- "filter submenu" -->
+        <menu>
+            <item android:id="@+id/sortUpward"
+                android:icon="@drawable/ic_round_arrow_upward_24"
+                android:title="@string/menu_item_filter"
+                app:showAsAction="ifRoom" />
+            <item android:id="@+id/sortDownward"
+                android:icon="@drawable/ic_round_arrow_downward_24"
+                android:title="@string/menu_item_filter"
+                app:showAsAction="ifRoom" />
+        </menu>
+    </item>
+</menu>

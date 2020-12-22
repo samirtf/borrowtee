@@ -17,4 +17,8 @@
     <string name="button_cancel">Cancel</string>
     <string name="delete_confirmation_dialog_title">Deleting confirmation!</string>
     <string name="delete_confirmation_dialog_message">Are you sure you want to delete this entry?</string>
+    <string name="menu_item_filter">Filter</string>
+    <string name="menu_item_filter_all_things">All Things</string>
+    <string name="menu_item_filter_borrowed">Borrowed</string>
+    <string name="menu_item_filter_at_home">At home</string>
 </resources>
