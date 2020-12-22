@@ -119,16 +119,45 @@ class AllThingsFragment :
     )
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.all_things_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // handle menu item clicks
         when (item.itemId) {
-            R.id.filter -> {Timber.tag(TAG).d("Filter Clicked!")}
+            R.id.filterAllThings -> handleFilterByAllThings()
+            R.id.filterBorrowed -> handleFilterByBorrowed()
+            R.id.filterAtHome -> handleFilterByAtHome()
+            R.id.sortUpward -> handleSortUpward()
+            R.id.sortDownward -> handleSortDownward()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun handleFilterByAllThings() {
+        Timber.tag(TAG).d("Filter All Things Clicked!")
+        viewModel.handle(AllThingsViewEvent.FilterByAllThings)
+    }
+
+    private fun handleFilterByBorrowed() {
+        Timber.tag(TAG).d("Filter Borrowed Clicked!")
+        viewModel.handle(AllThingsViewEvent.FilterByBorrowed)
+    }
+
+    private fun handleFilterByAtHome() {
+        Timber.tag(TAG).d("Filter At Home Clicked!")
+        viewModel.handle(AllThingsViewEvent.FilterByAtHome)
+    }
+
+    private fun handleSortUpward() {
+        Timber.tag(TAG).d("Sort Upward Clicked!")
+        viewModel.handle(AllThingsViewEvent.SortUpward)
+    }
+
+    private fun handleSortDownward() {
+        Timber.tag(TAG).d("Sort Downward Clicked!")
+        viewModel.handle(AllThingsViewEvent.SortDownward)
     }
 
     override fun renderViewState(viewState: AllThingsViewState) {

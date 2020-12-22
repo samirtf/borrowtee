@@ -7,7 +7,7 @@
         app:showAsAction="ifRoom">
         <!-- "filter submenu" -->
         <menu>
-            <item android:id="@+id/filterAll"
+            <item android:id="@+id/filterAllThings"
                 android:icon="@drawable/ic_round_border_filter_all_things_24"
                 android:title="@string/menu_item_filter_all_things"
                 app:showAsAction="ifRoom" />

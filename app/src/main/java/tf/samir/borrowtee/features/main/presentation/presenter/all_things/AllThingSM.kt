@@ -16,6 +16,11 @@ sealed class AllThingsViewEvent {
     object FabClicked : AllThingsViewEvent()
     object FetchAllThings : AllThingsViewEvent()
     data class DeleteThingClicked(val position: Int) : AllThingsViewEvent()
+    object FilterByAllThings : AllThingsViewEvent()
+    object FilterByBorrowed : AllThingsViewEvent()
+    object FilterByAtHome : AllThingsViewEvent()
+    object SortUpward : AllThingsViewEvent()
+    object SortDownward : AllThingsViewEvent()
 }
 
 sealed class FetchStatus {
