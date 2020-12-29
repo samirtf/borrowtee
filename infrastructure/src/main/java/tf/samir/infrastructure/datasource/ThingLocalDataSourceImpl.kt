@@ -23,11 +23,7 @@ class ThingLocalDataSourceImpl @Inject constructor(
 
     @ExperimentalCoroutinesApi
     override fun getAllThings(): Flow<List<ThingEntity>> = thingModelDao
-        .getAllThingsDistinctUntilChanged().map {
-            val mapThingModelsToDomain = dbMapper.mapThingModelsToDomain(it)
-            Log.e("TLDSI", "$mapThingModelsToDomain")
-            mapThingModelsToDomain
-        }
+        .getAllThingsDistinctUntilChanged().map { dbMapper.mapThingModelsToDomain(it) }
 
     @ExperimentalCoroutinesApi
     override fun getAllThingsBy(state: Int): Flow<List<ThingEntity>> = thingModelDao
@@ -40,9 +36,7 @@ class ThingLocalDataSourceImpl @Inject constructor(
     }
 
     private fun handleException(it: Throwable) {
-        when (it) {
-            is SQLiteConstraintException -> { it.reThrow() }
-        }
+        when (it) { is SQLiteConstraintException -> { it.reThrow() } }
         throw LocalDataSourceException()
     }
 

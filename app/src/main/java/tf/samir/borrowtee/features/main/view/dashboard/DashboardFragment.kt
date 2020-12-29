@@ -8,23 +8,27 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import tf.samir.borrowtee.R
+import tf.samir.borrowtee.databinding.FragmentDashboardBinding
 import tf.samir.borrowtee.features.main.presentation.presenter.dashboard.DashboardViewModel
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
+    private var _binding: FragmentDashboardBinding? = null
     private lateinit var dashboardViewModel: DashboardViewModel
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        dashboardViewModel =
-                ViewModelProvider(this).get(DashboardViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(viewLifecycleOwner, { textView.text = it })
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        return root
+        val binding = FragmentDashboardBinding.bind(view)
+        _binding = binding
+
+        dashboardViewModel.text.observe(viewLifecycleOwner, {
+            binding.textDashboard.text = it
+        })
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }
