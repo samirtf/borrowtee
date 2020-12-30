@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_example.*
 import tf.samir.core.base.AndroidHyperActivity
+import tf.samir.coreexample.databinding.ActivityExampleBinding
 
 
-class ExampleActivityAndroid : AndroidHyperActivity<ExampleViewState, ExampleViewEffect, ExampleViewEvent, ExampleViewModel>(){
+class ExampleAndroidActivity : AndroidHyperActivity<ExampleViewState, ExampleViewEffect, ExampleViewEvent, ExampleViewModel>(){
 
+    private lateinit var binding: ActivityExampleBinding
     override val viewModel: ExampleViewModel by viewModels()
 
     private val nameRvAdapter by lazy {
@@ -20,15 +21,16 @@ class ExampleActivityAndroid : AndroidHyperActivity<ExampleViewState, ExampleVie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_example)
+        binding = ActivityExampleBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        rvNewsHome.adapter = nameRvAdapter
+        binding.rvNewsHome.adapter = nameRvAdapter
 
-        srlNewsHome.setOnRefreshListener {
+        binding.srlNewsHome.setOnRefreshListener {
             viewModel.handle(ExampleViewEvent.OnSwipeRefresh)
         }
 
-        fabStar.setOnClickListener {
+        binding.fabStar.setOnClickListener {
             viewModel.handle(ExampleViewEvent.FabClicked)
         }
     }
@@ -37,14 +39,14 @@ class ExampleActivityAndroid : AndroidHyperActivity<ExampleViewState, ExampleVie
 
         when (viewState.fetchStatus) {
             is FetchStatus.Fetched -> {
-                srlNewsHome.isRefreshing = false
+                binding.srlNewsHome.isRefreshing = false
             }
             is FetchStatus.NotFetched -> {
                 viewModel.handle(ExampleViewEvent.FetchExampleItems)
-                srlNewsHome.isRefreshing = false
+                binding.srlNewsHome.isRefreshing = false
             }
             is FetchStatus.Fetching -> {
-                srlNewsHome.isRefreshing = true
+                binding.srlNewsHome.isRefreshing = true
             }
         }
         nameRvAdapter.submitList(viewState.itemsList)
@@ -53,7 +55,7 @@ class ExampleActivityAndroid : AndroidHyperActivity<ExampleViewState, ExampleVie
     override fun renderViewEffect(viewEffect: ExampleViewEffect) {
         when (viewEffect) {
             is ExampleViewEffect.ShowSnackbar -> {
-                Snackbar.make(coordinatorLayoutRoot, viewEffect.message, Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.coordinatorLayoutRoot, viewEffect.message, Snackbar.LENGTH_SHORT).show()
             }
             is ExampleViewEffect.ShowToast -> {
                 toast(viewEffect.message, Toast.LENGTH_SHORT)

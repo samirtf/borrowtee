@@ -12,6 +12,7 @@ import org.junit.Assert.*
 import tf.samir.domain.entities.AT_HOME
 import tf.samir.domain.entities.ThingEntity
 import tf.samir.domain.repository.ThingRepository
+import tf.samir.domain.usecases.GetThingsUseCase
 
 class GetThingsUseCaseImplTest {
 
@@ -20,7 +21,7 @@ class GetThingsUseCaseImplTest {
     @Before
     fun setUp() {
         val thingsRepositoryMock = mock<ThingRepository>{
-            on { this.thingsAtHome } doReturn flow {
+            on { fetchThings(AT_HOME) } doReturn flow {
                 emit(listOf(
                     ThingEntity(
                         id = "287584469D1068E856D9699F40255C27",
@@ -46,10 +47,8 @@ class GetThingsUseCaseImplTest {
             }
         }
 
-        val getThingsAtHomeUseCase = GetThingsUseCaseImpl(
-            thingsRepositoryMock
-        )
-        thingsAtHome = getThingsAtHomeUseCase.invoke()
+        val getThingsAtHomeUseCase: GetThingsUseCase = GetThingsUseCaseImpl(thingsRepositoryMock)
+        getThingsAtHomeUseCase.invoke().fold({ thingsAtHome = it },{})
     }
 
 

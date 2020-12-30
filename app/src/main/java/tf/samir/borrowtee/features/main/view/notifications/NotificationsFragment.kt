@@ -1,30 +1,31 @@
 package tf.samir.borrowtee.features.main.view.notifications
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import tf.samir.borrowtee.R
+import tf.samir.borrowtee.databinding.FragmentNotificationsBinding
 import tf.samir.borrowtee.features.main.presentation.presenter.notifications.NotificationsViewModel
 
-class NotificationsFragment : Fragment() {
+class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        notificationsViewModel =
-                ViewModelProvider(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        notificationsViewModel.text.observe(viewLifecycleOwner, { textView.text = it })
+    private var _binding: FragmentNotificationsBinding? = null
 
-        return root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val binding = FragmentNotificationsBinding.bind(view)
+        _binding = binding
+
+        notificationsViewModel.text.observe(viewLifecycleOwner, {
+            binding.textNotifications.text = it
+        })
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

@@ -74,11 +74,13 @@ class InMemoryThingRepositoryMock @Inject constructor(): ThingRepository {
         )
     }
 
-    override val allThings: Flow<List<ThingEntity>>
-        get() = flow { emit(things) }
-
-    override val thingsAtHome: Flow<List<ThingEntity>>
-        get() = flow { emit(things.filter { it.isAtHome() }) }
+    override fun fetchThings(state: Int?): Flow<List<ThingEntity>> {
+        return if (state == null) {
+            flow { emit(things.filter { it.state == state }) }
+        } else {
+            flow { emit(things) }
+        }
+    }
 
     override suspend fun insertThing(thingEntity: ThingEntity) {
         things.add(thingEntity)

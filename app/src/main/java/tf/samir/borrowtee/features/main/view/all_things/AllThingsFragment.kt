@@ -3,14 +3,12 @@ package tf.samir.borrowtee.features.main.view.all_things
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
-import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_all_things.*
 import tf.samir.borrowtee.R
 import tf.samir.borrowtee.databinding.FragmentAllThingsBinding
 import tf.samir.borrowtee.features.main.presentation.presenter.all_things.*
@@ -163,14 +161,14 @@ class AllThingsFragment :
     override fun renderViewState(viewState: AllThingsViewState) {
         when (viewState.fetchStatus) {
             is FetchStatus.Fetched -> {
-                progressBar.visibility = View.INVISIBLE
+                binding.progressBar.visibility = View.INVISIBLE
             }
             is FetchStatus.NotFetched -> {
                 viewModel.handle(AllThingsViewEvent.FetchAllThings)
-                progressBar.visibility = View.INVISIBLE
+                binding.progressBar.visibility = View.INVISIBLE
             }
             is FetchStatus.Fetching -> {
-                progressBar.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.VISIBLE
             }
         }
     }
