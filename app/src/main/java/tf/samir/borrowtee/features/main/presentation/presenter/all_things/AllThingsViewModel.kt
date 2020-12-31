@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import tf.samir.borrowtee.features.main.utils.toRecyclerItem
+import tf.samir.borrowtee.features.main.utils.*
 import tf.samir.borrowtee.viewbase.RecyclerItem
 import tf.samir.core.base.HyperViewModel
 import tf.samir.domain.entities.AT_HOME
@@ -37,7 +37,9 @@ class AllThingsViewModel @ViewModelInject constructor(
     @ThingState
     private var stateFilter: Int? = null
 
-    private var sortState: Boolean = false
+    @ThingSortType
+    private var sortState: Int? = STATE_UPWARD
+    private var thingsSorter = ThingSorter.createSorter(sortState)
 
     init {
         viewState =
@@ -62,35 +64,34 @@ class AllThingsViewModel @ViewModelInject constructor(
     }
 
     private fun filterByAllThings() {
-        stateFilter = null
-        fetchAllThings(stateFilter)
+        filterThings()
     }
 
     private fun filterByBorrowed() {
-        stateFilter = BORROWED
-        fetchAllThings(stateFilter)
+        filterThings(BORROWED)
     }
 
     private fun filterByAtHome() {
-        stateFilter = AT_HOME
-        fetchAllThings(stateFilter)
+        filterThings(AT_HOME)
+    }
+
+    private fun filterThings(@ThingState state: Int? = null) {
+        apply { stateFilter = state }.also { fetchAllThings(it.stateFilter) }
     }
 
     private fun sortUpward() {
-        sortState = true
-        _things.value = _things.value?.sortedBy { recyclerItem -> recyclerItem.data.state }
+        sortThings(STATE_UPWARD)
     }
-
-    private fun sortByUpward(things: List<RecyclerItem>) =
-        things.sortedBy { recyclerItem -> recyclerItem.data.state }
 
     private fun sortDownward() {
-        sortState = false
-        _things.value = _things.value?.sortedByDescending { recyclerItem -> recyclerItem.data.state }
+        sortThings(STATE_DOWNWARD)
     }
 
-    private fun sortByDownward(things: List<RecyclerItem>) =
-        things.sortedByDescending { recyclerItem -> recyclerItem.data.state }
+    private fun sortThings(@ThingSortType sortBy: Int = STATE_UPWARD) {
+        sortState = sortBy
+        thingsSorter = ThingSorter.createSorter(sortState)
+        _things.apply { this.value = thingsSorter.sort(this.value!!) }
+    }
 
     private fun navigateToCreateBorrowing() {
         viewEffect = AllThingsViewEffect.NavigateToCreateBorrowingPage
@@ -113,7 +114,7 @@ class AllThingsViewModel @ViewModelInject constructor(
         flow.map { thingList -> thingList.map { it.toRecyclerItem() } }.collect {
             withContext(Dispatchers.Main) {
                 viewState = viewState.copy(fetchStatus = FetchStatus.Fetched, allThings = it)
-                _things.value = if (sortState) sortByUpward(it) else sortByDownward(it)
+                _things.value = thingsSorter.sort(it)
             }
             Timber.tag(TAG).d("handleFetchThingsSuccess")
         }
