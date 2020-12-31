@@ -3,13 +3,14 @@ package tf.samir.borrowtee.features.main.view.notifications
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import tf.samir.borrowtee.R
 import tf.samir.borrowtee.databinding.FragmentNotificationsBinding
 import tf.samir.borrowtee.features.main.presentation.presenter.notifications.NotificationsViewModel
 
 class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
+    private val notificationsViewModel: NotificationsViewModel by viewModels()
 
     private var _binding: FragmentNotificationsBinding? = null
 
