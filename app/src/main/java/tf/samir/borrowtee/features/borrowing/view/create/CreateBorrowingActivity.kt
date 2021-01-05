@@ -1,6 +1,10 @@
 package tf.samir.borrowtee.features.borrowing.view.create
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
+import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
@@ -21,6 +25,14 @@ class CreateBorrowingActivity :
         const val TAG = "CreateBorrowingA"
     }
 
+    var resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            // There are no request codes
+            val data: Intent? = result.data
+            doSomeOperations((data?.extras?.get("data") as Bitmap))
+        }
+    }
+
     override val viewModel by viewModels<CreateBorrowingViewModel>()
     private var dialog: AlertDialog? = null
     private var binding: ActivityCreateBorrowingBinding? = null
@@ -34,6 +46,9 @@ class CreateBorrowingActivity :
         binding?.let { binding ->
             binding.viewModel = viewModel
             binding.thing = ThingData("", "")
+            binding.imageView.setOnClickListener {
+                viewModel.handle(CreateBorrowingViewEvent.TakePicture)
+            }
             binding.button.setOnClickListener {
                 binding.thing.let { viewModel.handle(CreateBorrowingViewEvent.CreateClicked(it)) }
             }
@@ -92,12 +107,43 @@ class CreateBorrowingActivity :
             is CreateBorrowingViewEffect.ShowSuccessDialog -> Timber.tag(TAG).i("ShowSuccessDialog")
             CreateBorrowingViewEffect.NavigateBack -> navigateBack()
             is CreateBorrowingViewEffect.ShowFailureDialog -> Timber.tag(TAG).i("ShowFailureDialog")
+            CreateBorrowingViewEffect.OpenTakePictureDialog -> openTakePictureDialog()
         }
     }
 
     private fun navigateBack() {
         Timber.tag(TAG).i("NavigateBack")
         onBackPressed()
+    }
+
+    private fun openTakePictureDialog() {
+        Timber.tag(TAG).i("openTakePictureDialog")
+        dialog = null
+        dialog = alert(getString(R.string.take_picture_dialog_title), getString(R.string.take_picture_dialog_message) ) {
+            positiveButton(getString(R.string.button_camera)) { openCamera() }
+            negativeButton(getString(R.string.button_gallery)) { openGallery() }
+            cancelable = false
+        }
+        dialog?.show()
+    }
+
+    private fun openCamera() {
+        Timber.tag(TAG).i("openCamera")
+        dispatchTakePictureIntent()
+    }
+
+    private fun dispatchTakePictureIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                resultLauncher.launch(takePictureIntent)
+        }
+    }
+
+    private fun openGallery() {
+        Timber.tag(TAG).i("openGallery")
+    }
+
+    private fun doSomeOperations(bitmap: Bitmap?) {
+        Timber.tag(TAG).i("doSomeOperations:[$bitmap]")
     }
 
     override fun onDestroy() {

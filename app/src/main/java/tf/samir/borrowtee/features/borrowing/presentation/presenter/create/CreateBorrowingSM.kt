@@ -21,11 +21,13 @@ sealed class CreateBorrowingViewEffect {
     object ShowSuccessDialog : CreateBorrowingViewEffect()
     object ShowFailureDialog : CreateBorrowingViewEffect()
     object NavigateBack : CreateBorrowingViewEffect()
+    object OpenTakePictureDialog : CreateBorrowingViewEffect()
 }
 
 sealed class CreateBorrowingViewEvent {
     data class CreateClicked(val thingData: ThingData?) : CreateBorrowingViewEvent()
     object Cancel : CreateBorrowingViewEvent()
+    object TakePicture : CreateBorrowingViewEvent()
 }
 
 sealed class CreateStatus {

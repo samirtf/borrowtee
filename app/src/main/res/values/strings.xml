@@ -17,6 +17,10 @@
     <string name="button_cancel">Cancel</string>
     <string name="delete_confirmation_dialog_title">Deleting confirmation!</string>
     <string name="delete_confirmation_dialog_message">Are you sure you want to delete this entry?</string>
+    <string name="take_picture_dialog_title">Take Photo</string>
+    <string name="take_picture_dialog_message">Do you want to use the camera or add a photo from the gallery?</string>
+    <string name="button_camera">Camera</string>
+    <string name="button_gallery">Gallery</string>
     <string name="menu_item_filter">Filter</string>
     <string name="menu_item_filter_all_things">All Things</string>
     <string name="menu_item_filter_borrowed">Borrowed</string>

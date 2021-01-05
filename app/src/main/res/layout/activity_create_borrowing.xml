@@ -17,31 +17,46 @@
         android:layout_height="match_parent"
         tools:context=".features.borrowing.view.create.CreateBorrowingActivity">
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="80dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_baseline_add_a_photo_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/layoutName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutName"
-            android:enabled="@{viewModel.viewStates.layoutNameEnable}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:enabled="@{viewModel.viewStates.layoutNameEnable}"
             android:hint="@string/form_create_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:layout_editor_absoluteX="0dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputName"
-                android:text="@={thing.name}"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@={thing.name}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutDescription"
-            android:enabled="@{viewModel.viewStates.layoutDescriptionEnable}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="@{viewModel.viewStates.layoutDescriptionEnable}"
             android:hint="@string/form_create_description"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutName">
 
@@ -50,10 +65,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@={thing.description}"/>
+                android:text="@={thing.description}" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <Button
             android:id="@+id/button"
@@ -72,11 +86,11 @@
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:progressDrawable="@drawable/circular_progress_bar"
-            android:background="@drawable/circle_shape"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
