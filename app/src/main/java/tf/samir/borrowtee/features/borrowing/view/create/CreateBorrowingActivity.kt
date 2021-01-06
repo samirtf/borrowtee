@@ -136,7 +136,7 @@ class CreateBorrowingActivity :
         ) {
             positiveButton(getString(R.string.button_camera)) { openCamera() }
             negativeButton(getString(R.string.button_gallery)) { openGallery() }
-            cancelable = false
+            cancelable = true
         }
         dialog?.show()
     }
