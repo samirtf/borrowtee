@@ -2,11 +2,15 @@ package tf.samir.borrowtee.features.borrowing.view.create
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import dagger.hilt.android.AndroidEntryPoint
 import tf.samir.borrowtee.R
@@ -16,6 +20,11 @@ import tf.samir.borrowtee.viewbase.alert
 import tf.samir.core.base.HyperActivity
 import tf.samir.infrastructure.datasource.failures.UniqueConstraintException
 import timber.log.Timber
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 @AndroidEntryPoint
 class CreateBorrowingActivity :
@@ -25,17 +34,22 @@ class CreateBorrowingActivity :
         const val TAG = "CreateBorrowingA"
     }
 
+    override val viewModel by viewModels<CreateBorrowingViewModel>()
+    private var dialog: AlertDialog? = null
+    private var binding: ActivityCreateBorrowingBinding? = null
+
     var resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             // There are no request codes
             val data: Intent? = result.data
-            doSomeOperations((data?.extras?.get("data") as Bitmap))
+            Timber.tag(TAG).i("registerForActivityResult:[${pictureFile?.absolutePath}]")
+            updatePictureView(createBitmap(pictureFile))
+        } else {
+            Timber.tag(TAG).i("registerForActivityResult:fail")
         }
     }
 
-    override val viewModel by viewModels<CreateBorrowingViewModel>()
-    private var dialog: AlertDialog? = null
-    private var binding: ActivityCreateBorrowingBinding? = null
+    private var pictureFile: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,7 +133,10 @@ class CreateBorrowingActivity :
     private fun openTakePictureDialog() {
         Timber.tag(TAG).i("openTakePictureDialog")
         dialog = null
-        dialog = alert(getString(R.string.take_picture_dialog_title), getString(R.string.take_picture_dialog_message) ) {
+        dialog = alert(
+            getString(R.string.take_picture_dialog_title),
+            getString(R.string.take_picture_dialog_message)
+        ) {
             positiveButton(getString(R.string.button_camera)) { openCamera() }
             negativeButton(getString(R.string.button_gallery)) { openGallery() }
             cancelable = false
@@ -134,7 +151,23 @@ class CreateBorrowingActivity :
 
     private fun dispatchTakePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            val photoFile: File? = try {
+                createImageFile()
+            } catch (ex: IOException) {
+                Timber.tag(TAG).i("Error occurred while creating the File")
+                null
+            }.also { pictureFile = it }
+
+            // Continue only if the File was successfully created
+            photoFile?.also {
+                val photoUri: Uri = FileProvider.getUriForFile(
+                    this,
+                    applicationContext.packageName + ".fileprovider",
+                    it
+                )
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
                 resultLauncher.launch(takePictureIntent)
+            }
         }
     }
 
@@ -142,8 +175,25 @@ class CreateBorrowingActivity :
         Timber.tag(TAG).i("openGallery")
     }
 
-    private fun doSomeOperations(bitmap: Bitmap?) {
+    private fun createBitmap(file: File?): Bitmap? {
+        return BitmapFactory.decodeFile(file?.absolutePath)
+    }
+
+    private fun updatePictureView(bitmap: Bitmap?) {
         Timber.tag(TAG).i("doSomeOperations:[$bitmap]")
+        binding?.imageView?.setImageBitmap(bitmap)
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        )
     }
 
     override fun onDestroy() {
