@@ -6,8 +6,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.ExifInterface
 import android.os.Environment
-import java.io.File
-import java.io.IOException
+import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -44,4 +43,22 @@ fun rotateImageByAngle(source: Bitmap, angle: Float): Bitmap {
     val matrix = Matrix()
     matrix.postRotate(angle)
     return Bitmap.createBitmap(source, 0, 0, source.width, source.height, matrix, true)
+}
+
+fun Bitmap.resizeBitmap(): Bitmap {
+    var source = this
+    val heightOrg = source.height
+    val heightNew = 800
+    if (heightNew < heightOrg) {
+        val widthOrg = source.width
+        val widthNew = heightNew * widthOrg / heightOrg
+        val matrix = Matrix()
+        matrix.postScale(widthNew.toFloat() / widthOrg, heightNew.toFloat() / heightOrg)
+        source = Bitmap.createBitmap(source, 0, 0, widthOrg, heightOrg, matrix, false)
+    }
+    return source
+}
+
+fun compressBitmap(bitmap: Bitmap, outputFile: File, compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, quality: Int = 100) {
+    bitmap.compress(compressFormat, quality, FileOutputStream(outputFile))
 }

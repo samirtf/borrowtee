@@ -13,9 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import tf.samir.borrowtee.R
 import tf.samir.borrowtee.databinding.ActivityCreateBorrowingBinding
 import tf.samir.borrowtee.features.borrowing.presentation.presenter.create.*
-import tf.samir.borrowtee.features.borrowing.utils.createBitmap
-import tf.samir.borrowtee.features.borrowing.utils.createImageFile
-import tf.samir.borrowtee.features.borrowing.utils.fixImageOrientation
+import tf.samir.borrowtee.features.borrowing.utils.*
 import tf.samir.borrowtee.viewbase.alert
 import tf.samir.core.base.HyperActivity
 import tf.samir.infrastructure.datasource.failures.UniqueConstraintException
@@ -174,8 +172,12 @@ class CreateBorrowingActivity :
 
     private fun updatePictureView(pictureFile: File?) {
         pictureFile?.let { file ->
-            file.createBitmap()?.run { fixImageOrientation(file.absolutePath, this) }
-                .also { binding?.imageView?.setImageBitmap(it) }
+            file.createBitmap()?.run {
+                val resizedBitmap = fixImageOrientation(file.absolutePath, this)?.resizeBitmap()
+                compressBitmap(resizedBitmap!!, file)
+                file.createBitmap()
+            }.also { binding?.imageView?.setImageBitmap(it) }
+
             Timber.tag(TAG).i("updatePictureView:[${pictureFile.absolutePath}]")
         }
     }
