@@ -1,7 +1,6 @@
 package tf.samir.borrowtee.features.borrowing.view.create
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -16,6 +15,7 @@ import tf.samir.borrowtee.databinding.ActivityCreateBorrowingBinding
 import tf.samir.borrowtee.features.borrowing.presentation.presenter.create.*
 import tf.samir.borrowtee.features.borrowing.utils.createBitmap
 import tf.samir.borrowtee.features.borrowing.utils.createImageFile
+import tf.samir.borrowtee.features.borrowing.utils.fixImageOrientation
 import tf.samir.borrowtee.viewbase.alert
 import tf.samir.core.base.HyperActivity
 import tf.samir.infrastructure.datasource.failures.UniqueConstraintException
@@ -40,7 +40,7 @@ class CreateBorrowingActivity :
         if (result.resultCode == RESULT_OK) {
             // There are no request codes
             Timber.tag(TAG).i("registerForActivityResult:[${pictureFile?.absolutePath}]")
-            updatePictureView(pictureFile.createBitmap())
+            updatePictureView(pictureFile)
         } else {
             Timber.tag(TAG).i("registerForActivityResult:fail")
         }
@@ -172,9 +172,12 @@ class CreateBorrowingActivity :
         Timber.tag(TAG).i("openGallery")
     }
 
-    private fun updatePictureView(bitmap: Bitmap?) {
-        Timber.tag(TAG).i("doSomeOperations:[$bitmap]")
-        binding?.imageView?.setImageBitmap(bitmap)
+    private fun updatePictureView(pictureFile: File?) {
+        pictureFile?.let { file ->
+            file.createBitmap()?.run { fixImageOrientation(file.absolutePath, this) }
+                .also { binding?.imageView?.setImageBitmap(it) }
+            Timber.tag(TAG).i("updatePictureView:[${pictureFile.absolutePath}]")
+        }
     }
 
     override fun onDestroy() {
