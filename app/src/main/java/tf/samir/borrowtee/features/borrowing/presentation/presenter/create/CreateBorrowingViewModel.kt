@@ -35,6 +35,7 @@ class CreateBorrowingViewModel @ViewModelInject constructor(private val createBo
         when (viewEvent) {
             is CreateBorrowingViewEvent.CreateClicked -> createBorrowing(viewEvent.thingData)
             CreateBorrowingViewEvent.Cancel -> cancelCreation()
+            CreateBorrowingViewEvent.TakePicture -> openTakePhotoSelection()
         }
     }
 
@@ -78,6 +79,13 @@ class CreateBorrowingViewModel @ViewModelInject constructor(private val createBo
         viewModelScope.launch {
             viewState = viewState.buildNotCreatedState()
             viewEffect = CreateBorrowingViewEffect.NavigateBack
+        }
+    }
+
+    private fun openTakePhotoSelection() {
+        viewModelScope.launch {
+            viewState = viewState.buildCreatedState()
+            viewEffect = CreateBorrowingViewEffect.OpenTakePictureDialog
         }
     }
 
