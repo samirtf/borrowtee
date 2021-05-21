@@ -1,7 +1,5 @@
 package tf.samir.borrowtee.features.borrowing.presentation.presenter.create
 
-import java.lang.Exception
-
 data class CreateBorrowingViewState(
     val createStatus: CreateStatus = CreateStatus.NotCreated,
     val progressBar: Boolean = false,

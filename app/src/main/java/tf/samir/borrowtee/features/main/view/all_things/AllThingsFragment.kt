@@ -29,7 +29,7 @@ class AllThingsFragment :
     private val binding: FragmentAllThingsBinding
         get() = _binding!!
 
-    override val viewModel: AllThingsViewModel by viewModels()
+    override val viewModel by viewModels<AllThingsViewModel>()
 
     private var dialog: AlertDialog? = null
 

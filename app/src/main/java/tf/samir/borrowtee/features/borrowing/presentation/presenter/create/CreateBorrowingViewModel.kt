@@ -2,8 +2,8 @@ package tf.samir.borrowtee.features.borrowing.presentation.presenter.create
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -15,10 +15,11 @@ import tf.samir.domain.entities.BORROWED
 import tf.samir.domain.entities.ThingEntity
 import tf.samir.domain.usecases.CreateBorrowingUseCase
 import timber.log.Timber
+import javax.inject.Inject
 import kotlin.random.Random
 
-
-class CreateBorrowingViewModel @ViewModelInject constructor(private val createBorrowingUseCase: CreateBorrowingUseCase) :
+@HiltViewModel
+class CreateBorrowingViewModel @Inject constructor(private val createBorrowingUseCase: CreateBorrowingUseCase) :
     HyperViewModel<CreateBorrowingViewState, CreateBorrowingViewEffect, CreateBorrowingViewEvent>() {
 
     companion object {

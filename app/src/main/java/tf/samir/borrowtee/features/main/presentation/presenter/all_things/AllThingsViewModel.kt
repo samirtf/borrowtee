@@ -1,9 +1,9 @@
 package tf.samir.borrowtee.features.main.presentation.presenter.all_things
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -20,8 +20,10 @@ import tf.samir.domain.entities.ThingState
 import tf.samir.domain.usecases.DeleteBorrowingUseCase
 import tf.samir.domain.usecases.GetThingsUseCase
 import timber.log.Timber
+import javax.inject.Inject
 
-class AllThingsViewModel @ViewModelInject constructor(
+@HiltViewModel
+class AllThingsViewModel @Inject constructor(
     private val getThingsUseCase: GetThingsUseCase,
     private val deleteBorrowingUseCase: DeleteBorrowingUseCase
 ) : HyperViewModel<AllThingsViewState, AllThingsViewEffect, AllThingsViewEvent>() {

@@ -6,4 +6,3 @@ class GenericConstraintException: Throwable()
 
 class LocalDataSourceException(): Throwable()
 
-class RemoteDataSourceException(): Throwable()

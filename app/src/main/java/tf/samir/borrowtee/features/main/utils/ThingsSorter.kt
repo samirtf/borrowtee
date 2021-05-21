@@ -1,7 +1,6 @@
 package tf.samir.borrowtee.features.main.utils
 
 import tf.samir.borrowtee.viewbase.RecyclerItem
-import java.lang.IllegalStateException
 
 interface ThingsSorter {
     fun sort(list: List<RecyclerItem>) : List<RecyclerItem>

@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import tf.samir.borrowtee.R
 import tf.samir.borrowtee.databinding.FragmentDashboardBinding
 import tf.samir.borrowtee.features.main.presentation.presenter.dashboard.DashboardViewModel
 
+@AndroidEntryPoint
 class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
     private var _binding: FragmentDashboardBinding? = null

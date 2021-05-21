@@ -2,7 +2,6 @@ package tf.samir.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import tf.samir.data.datasource.ThingLocalDataSource
-import tf.samir.domain.entities.AT_HOME
 import tf.samir.domain.entities.ThingEntity
 import tf.samir.domain.entities.ThingState
 import tf.samir.domain.repository.ThingRepository

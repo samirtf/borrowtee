@@ -49,12 +49,10 @@ class TextAndIconButtonItem(
         val canvasWidth = rectF.width()
         textPaint.textAlign = Paint.Align.LEFT
         textPaint.getTextBounds(text, 0, text.length, rect)
-        val x: Float
-        val y: Float
         val drawable = ContextCompat.getDrawable(context, imageResId)
         val bitmap = drawableToBitmap(drawable)
-        x = canvasWidth / 2f - rect.width() / 2f - rect.left.toFloat()
-        y = canvasHeight / 2f + rect.height() / 2f - rect.bottom.toFloat()
+        val x: Float = canvasWidth / 2f - rect.width() / 2f - rect.left.toFloat()
+        val y: Float = canvasHeight / 2f + rect.height() / 2f - rect.bottom.toFloat()
         canvas.drawText(text, rectF.left + x, rectF.top + y + y / 4, textPaint)
         canvas.drawBitmap(
             bitmap,

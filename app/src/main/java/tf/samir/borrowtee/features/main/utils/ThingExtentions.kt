@@ -5,8 +5,6 @@ import tf.samir.borrowtee.R
 import tf.samir.borrowtee.viewbase.RecyclerItem
 import tf.samir.domain.entities.BORROWED
 import tf.samir.domain.entities.ThingEntity
-import tf.samir.domain.entities.ThingState
-
 
 fun ThingEntity.toRecyclerItem() = RecyclerItem(
     data = this,

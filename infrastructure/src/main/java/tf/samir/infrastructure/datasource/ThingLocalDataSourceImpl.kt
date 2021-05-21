@@ -1,8 +1,6 @@
 package tf.samir.infrastructure.datasource
 
 import android.database.sqlite.SQLiteConstraintException
-import android.database.sqlite.SQLiteException
-import android.util.Log
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

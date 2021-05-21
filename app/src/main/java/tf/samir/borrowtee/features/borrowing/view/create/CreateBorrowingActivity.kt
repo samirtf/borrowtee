@@ -173,8 +173,8 @@ class CreateBorrowingActivity :
     private fun updatePictureView(pictureFile: File?) {
         pictureFile?.let { file ->
             file.createBitmap()?.run {
-                val resizedBitmap = fixImageOrientation(file.absolutePath, this)?.resizeBitmap()
-                compressBitmap(resizedBitmap!!, file)
+                val resizedBitmap = fixImageOrientation(file.absolutePath, this).resizeBitmap()
+                compressBitmap(resizedBitmap, file)
                 file.createBitmap()
             }.also { binding?.imageView?.setImageBitmap(it) }
 

@@ -4,9 +4,11 @@ import android.content.ContextWrapper
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
-import android.media.ExifInterface
 import android.os.Environment
-import java.io.*
+import androidx.exifinterface.media.ExifInterface
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -14,7 +16,7 @@ import java.util.*
 @Throws(IOException::class)
 fun ContextWrapper.createImageFile(): File {
     // Create an image file name
-    val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+    val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
     val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     return File.createTempFile(
         "JPEG_${timeStamp}_", /* prefix */
@@ -28,7 +30,7 @@ fun File?.createBitmap(): Bitmap? {
 }
 
 @Throws(IOException::class)
-fun fixImageOrientation(imagePath: String, source: Bitmap): Bitmap? {
+fun fixImageOrientation(imagePath: String, source: Bitmap): Bitmap {
     var sourceCopy = source
     val ei = ExifInterface(imagePath)
     when (ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
